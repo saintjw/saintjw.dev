@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { getTopScores, submitScore, type ScoreEntry } from "@/lib/leaderboard";
 import Leaderboard from "@/components/Leaderboard";
+import ShareButton from "@/components/ShareButton";
 
 const HOLE_COUNT = 9;
 const DURATION = 30;
@@ -125,7 +126,13 @@ export default function WhackAMole() {
       )}
 
       {!playing && timeLeft === 0 && (
-        <p className="text-muted">이번 판 점수: {score}점</p>
+        <>
+          <p className="text-muted">이번 판 점수: {score}점</p>
+          <ShareButton
+            title="두더지 잡기"
+            text={`두더지 잡기에서 ${score}점 기록했어요! 도전해보세요`}
+          />
+        </>
       )}
 
       <Leaderboard entries={topScores} unit="점" />

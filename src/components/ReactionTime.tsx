@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { getTopScores, submitScore, type ScoreEntry } from "@/lib/leaderboard";
 import Leaderboard from "@/components/Leaderboard";
+import ShareButton from "@/components/ShareButton";
 
 type Phase = "idle" | "waiting" | "ready" | "result" | "too-soon";
 
@@ -85,7 +86,13 @@ export default function ReactionTime() {
       </button>
 
       {phase === "result" && resultMs !== null && (
-        <p className="text-muted">{rating(resultMs)}</p>
+        <>
+          <p className="text-muted">{rating(resultMs)}</p>
+          <ShareButton
+            title="반응속도 테스트"
+            text={`반응속도 테스트에서 ${resultMs}ms 기록했어요! 도전해보세요`}
+          />
+        </>
       )}
 
       <Leaderboard entries={topScores} unit=" ms" />

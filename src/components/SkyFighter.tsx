@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { getTopScores, submitScore, type ScoreEntry } from "@/lib/leaderboard";
 import Leaderboard from "@/components/Leaderboard";
+import ShareButton from "@/components/ShareButton";
 
 const CANVAS_W = 360;
 const CANVAS_H = 520;
@@ -259,6 +260,11 @@ export default function SkyFighter() {
               <>
                 <p className="text-xl font-semibold">게임 오버</p>
                 <p>이번 점수: {score}점</p>
+                <ShareButton
+                  title="스카이 파이터"
+                  text={`스카이 파이터에서 ${score}점 기록했어요! 도전해보세요`}
+                  className="rounded-full border border-white/40 bg-white/10 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-white/20"
+                />
               </>
             )}
             {phase === "idle" && (
