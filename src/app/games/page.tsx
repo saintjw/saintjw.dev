@@ -1,5 +1,11 @@
 import Link from "next/link";
 import { games } from "@/lib/games";
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata(
+  "게임",
+  "심심할 때 만든 작은 웹 게임들을 모아뒀습니다."
+);
 
 const colorClasses = {
   mint: "bg-mint/60",

@@ -1,6 +1,12 @@
 import { getLatestPosts } from "@/lib/tistory";
+import { pageMetadata } from "@/lib/metadata";
 
 export const revalidate = 3600;
+
+export const metadata = pageMetadata(
+  "블로그",
+  "티스토리에 쓴 글들을 최신순으로 모아둡니다."
+);
 
 export default async function BlogPage() {
   let posts: Awaited<ReturnType<typeof getLatestPosts>> = [];

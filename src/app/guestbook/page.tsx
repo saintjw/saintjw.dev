@@ -1,4 +1,10 @@
 import Giscus from "@/components/Giscus";
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata(
+  "방명록",
+  "GitHub 계정으로 로그인하고 방명록을 남겨보세요."
+);
 
 export default function GuestbookPage() {
   return (

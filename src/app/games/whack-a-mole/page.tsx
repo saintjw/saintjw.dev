@@ -1,5 +1,11 @@
 import Link from "next/link";
 import WhackAMole from "@/components/WhackAMole";
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata(
+  "두더지 잡기",
+  "30초 동안 튀어나오는 두더지를 최대한 많이 잡아보세요."
+);
 
 export default function WhackAMolePage() {
   return (

@@ -1,6 +1,12 @@
 import Link from "next/link";
 import TicTacToe from "@/components/TicTacToe";
 import ShareButton from "@/components/ShareButton";
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata(
+  "틱택토",
+  "2인용 O/X 게임. 클래식하지만 늘 재밌죠."
+);
 
 export default function TicTacToePage() {
   return (

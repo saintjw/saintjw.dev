@@ -1,5 +1,11 @@
 import Link from "next/link";
 import ReactionTime from "@/components/ReactionTime";
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata(
+  "반응속도 테스트",
+  "화면이 초록색으로 바뀌는 순간 클릭! 내 반응 속도는 몇 ms?"
+);
 
 export default function ReactionTimePage() {
   return (

@@ -26,9 +26,28 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const SITE_TITLE = "saintjw.dev";
+const SITE_DESCRIPTION = "개인 소개, 블로그, 그리고 작은 게임들을 모아둔 공간";
+
 export const metadata: Metadata = {
-  title: "saintjw.dev",
-  description: "개인 소개, 블로그, 그리고 작은 게임들을 모아둔 공간",
+  metadataBase: new URL("https://saintjw-dev.vercel.app"),
+  title: {
+    default: SITE_TITLE,
+    template: `%s · ${SITE_TITLE}`,
+  },
+  description: SITE_DESCRIPTION,
+  openGraph: {
+    type: "website",
+    locale: "ko_KR",
+    siteName: SITE_TITLE,
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -1,5 +1,11 @@
 import Link from "next/link";
 import SkyFighter from "@/components/SkyFighter";
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata(
+  "스카이 파이터",
+  "적기를 피하고 쏘면서 최대한 오래 살아남으세요."
+);
 
 export default function SkyFighterPage() {
   return (

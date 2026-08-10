@@ -1,4 +1,7 @@
 import { projects } from "@/lib/projects";
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata("프로젝트", "만들어본 프로젝트들을 모아뒀습니다.");
 
 export default function ProjectsPage() {
   return (
