@@ -6,6 +6,7 @@ const links = [
   { href: "/blog", label: "블로그" },
   { href: "/games", label: "게임" },
   { href: "/projects", label: "프로젝트" },
+  { href: "/guestbook", label: "방명록" },
 ];
 
 export default function Nav() {
