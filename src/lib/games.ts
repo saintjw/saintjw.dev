@@ -21,4 +21,11 @@ export const games: Game[] = [
     emoji: "⚡",
     color: "pink",
   },
+  {
+    slug: "whack-a-mole",
+    title: "두더지 잡기",
+    description: "30초 동안 튀어나오는 두더지를 최대한 많이 잡아보세요.",
+    emoji: "🐹",
+    color: "peach",
+  },
 ];
