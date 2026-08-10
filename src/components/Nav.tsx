@@ -1,0 +1,31 @@
+import Link from "next/link";
+
+const links = [
+  { href: "/", label: "홈" },
+  { href: "/blog", label: "블로그" },
+  { href: "/games", label: "게임" },
+];
+
+export default function Nav() {
+  return (
+    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-md">
+      <nav className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
+        <Link href="/" className="text-lg font-semibold tracking-tight text-foreground">
+          saintjw<span className="text-accent">.</span>
+        </Link>
+        <ul className="flex items-center gap-6 text-sm text-muted">
+          {links.map((link) => (
+            <li key={link.href}>
+              <Link
+                href={link.href}
+                className="transition-colors hover:text-foreground"
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </header>
+  );
+}
