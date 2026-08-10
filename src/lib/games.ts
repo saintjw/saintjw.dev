@@ -28,4 +28,11 @@ export const games: Game[] = [
     emoji: "🐹",
     color: "peach",
   },
+  {
+    slug: "sky-fighter",
+    title: "스카이 파이터",
+    description: "적기를 피하고 쏘면서 최대한 오래 살아남으세요.",
+    emoji: "✈️",
+    color: "mint",
+  },
 ];
