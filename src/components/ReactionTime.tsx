@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { getTopScores, submitScore, type ScoreEntry } from "@/lib/leaderboard";
+import Leaderboard from "@/components/Leaderboard";
 
 type Phase = "idle" | "waiting" | "ready" | "result" | "too-soon";
 
-const BEST_KEY = "reaction-time-best-ms";
+const LEADERBOARD_KEY = "reaction-time-leaderboard";
 
 function rating(ms: number) {
   if (ms < 200) return "번개 같은 반응! ⚡";
@@ -16,13 +18,12 @@ function rating(ms: number) {
 export default function ReactionTime() {
   const [phase, setPhase] = useState<Phase>("idle");
   const [resultMs, setResultMs] = useState<number | null>(null);
-  const [best, setBest] = useState<number | null>(null);
+  const [topScores, setTopScores] = useState<ScoreEntry[]>([]);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const startRef = useRef<number>(0);
 
   useEffect(() => {
-    const stored = localStorage.getItem(BEST_KEY);
-    if (stored) setBest(Number(stored));
+    setTopScores(getTopScores(LEADERBOARD_KEY));
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
@@ -54,10 +55,7 @@ export default function ReactionTime() {
       const elapsed = Math.round(performance.now() - startRef.current);
       setResultMs(elapsed);
       setPhase("result");
-      if (best === null || elapsed < best) {
-        setBest(elapsed);
-        localStorage.setItem(BEST_KEY, String(elapsed));
-      }
+      setTopScores(submitScore(LEADERBOARD_KEY, elapsed, false));
     }
   }
 
@@ -90,9 +88,7 @@ export default function ReactionTime() {
         <p className="text-muted">{rating(resultMs)}</p>
       )}
 
-      {best !== null && (
-        <p className="text-sm text-muted">최고 기록: {best} ms</p>
-      )}
+      <Leaderboard entries={topScores} unit=" ms" />
     </div>
   );
 }

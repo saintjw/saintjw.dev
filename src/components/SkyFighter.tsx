@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { getTopScores, submitScore, type ScoreEntry } from "@/lib/leaderboard";
+import Leaderboard from "@/components/Leaderboard";
 
 const CANVAS_W = 360;
 const CANVAS_H = 520;
@@ -8,7 +10,7 @@ const PLAYER_SIZE = 26;
 const BULLET_SPEED = 7;
 const BULLET_INTERVAL = 220;
 const PLAYER_MOVE_SPEED = 4.5;
-const BEST_KEY = "sky-fighter-best-score";
+const LEADERBOARD_KEY = "sky-fighter-leaderboard";
 
 type Bullet = { x: number; y: number };
 type Enemy = { x: number; y: number; speed: number };
@@ -21,7 +23,7 @@ export default function SkyFighter() {
   const [phase, setPhase] = useState<Phase>("idle");
   const [score, setScore] = useState(0);
   const [lives, setLives] = useState(3);
-  const [best, setBest] = useState<number | null>(null);
+  const [topScores, setTopScores] = useState<ScoreEntry[]>([]);
 
   const playerRef = useRef({ x: CANVAS_W / 2, y: CANVAS_H - 60 });
   const bulletsRef = useRef<Bullet[]>([]);
@@ -37,8 +39,7 @@ export default function SkyFighter() {
   const elapsedRef = useRef(0);
 
   useEffect(() => {
-    const stored = localStorage.getItem(BEST_KEY);
-    if (stored) setBest(Number(stored));
+    setTopScores(getTopScores(LEADERBOARD_KEY));
   }, []);
 
   useEffect(() => {
@@ -101,13 +102,7 @@ export default function SkyFighter() {
       setScore(scoreRef.current);
       setLives(0);
       setPhase("over");
-      setBest((prevBest) => {
-        if (prevBest === null || scoreRef.current > prevBest) {
-          localStorage.setItem(BEST_KEY, String(scoreRef.current));
-          return scoreRef.current;
-        }
-        return prevBest;
-      });
+      setTopScores(submitScore(LEADERBOARD_KEY, scoreRef.current, true));
     }
 
     function loop(timestamp: number) {
@@ -283,7 +278,7 @@ export default function SkyFighter() {
         )}
       </div>
 
-      {best !== null && <p className="text-sm text-muted">최고 점수: {best}점</p>}
+      <Leaderboard entries={topScores} unit="점" />
     </div>
   );
 }

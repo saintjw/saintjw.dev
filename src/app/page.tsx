@@ -32,7 +32,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="grid gap-5 pb-24 sm:grid-cols-2">
+      <section className="grid gap-5 pb-24 sm:grid-cols-3">
         <Link
           href="/blog"
           className="group rounded-3xl border border-border bg-mint/60 p-8 transition-transform hover:-translate-y-1"
@@ -58,6 +58,20 @@ export default function Home() {
           </p>
           <span className="mt-4 inline-block text-sm font-medium text-foreground/70 group-hover:text-foreground">
             플레이하기 →
+          </span>
+        </Link>
+
+        <Link
+          href="/projects"
+          className="group rounded-3xl border border-border bg-sky/60 p-8 transition-transform hover:-translate-y-1"
+        >
+          <div className="text-3xl">🛠️</div>
+          <h2 className="mt-4 text-xl font-semibold text-foreground">프로젝트</h2>
+          <p className="mt-2 text-sm text-muted">
+            만들어본 것들을 모아둡니다.
+          </p>
+          <span className="mt-4 inline-block text-sm font-medium text-foreground/70 group-hover:text-foreground">
+            둘러보기 →
           </span>
         </Link>
       </section>

@@ -1,9 +1,11 @@
 import Link from "next/link";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const links = [
   { href: "/", label: "홈" },
   { href: "/blog", label: "블로그" },
   { href: "/games", label: "게임" },
+  { href: "/projects", label: "프로젝트" },
 ];
 
 export default function Nav() {
@@ -13,18 +15,21 @@ export default function Nav() {
         <Link href="/" className="text-lg font-semibold tracking-tight text-foreground">
           saintjw<span className="text-accent">.</span>
         </Link>
-        <ul className="flex items-center gap-6 text-sm text-muted">
-          {links.map((link) => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                className="transition-colors hover:text-foreground"
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <div className="flex items-center gap-6">
+          <ul className="flex items-center gap-6 text-sm text-muted">
+            {links.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className="transition-colors hover:text-foreground"
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <ThemeToggle />
+        </div>
       </nav>
     </header>
   );

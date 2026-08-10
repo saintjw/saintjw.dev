@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { getTopScores, submitScore, type ScoreEntry } from "@/lib/leaderboard";
+import Leaderboard from "@/components/Leaderboard";
 
 const HOLE_COUNT = 9;
 const DURATION = 30;
-const BEST_KEY = "whack-a-mole-best-score";
+const LEADERBOARD_KEY = "whack-a-mole-leaderboard";
 
 function randomHole(exclude: number | null) {
   let next = Math.floor(Math.random() * HOLE_COUNT);
@@ -17,7 +19,7 @@ export default function WhackAMole() {
   const [score, setScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(DURATION);
   const [moleIndex, setMoleIndex] = useState<number | null>(null);
-  const [best, setBest] = useState<number | null>(null);
+  const [topScores, setTopScores] = useState<ScoreEntry[]>([]);
 
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const moleIndexRef = useRef<number | null>(null);
@@ -25,8 +27,7 @@ export default function WhackAMole() {
   moleIndexRef.current = moleIndex;
 
   useEffect(() => {
-    const stored = localStorage.getItem(BEST_KEY);
-    if (stored) setBest(Number(stored));
+    setTopScores(getTopScores(LEADERBOARD_KEY));
   }, []);
 
   useEffect(() => {
@@ -89,9 +90,8 @@ export default function WhackAMole() {
 
   useEffect(() => {
     if (playing) return;
-    if (score > 0 && (best === null || score > best)) {
-      setBest(score);
-      localStorage.setItem(BEST_KEY, String(score));
+    if (score > 0) {
+      setTopScores(submitScore(LEADERBOARD_KEY, score, true));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playing]);
@@ -128,7 +128,7 @@ export default function WhackAMole() {
         <p className="text-muted">이번 판 점수: {score}점</p>
       )}
 
-      {best !== null && <p className="text-sm text-muted">최고 점수: {best}점</p>}
+      <Leaderboard entries={topScores} unit="점" />
     </div>
   );
 }
