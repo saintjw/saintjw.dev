@@ -14,4 +14,11 @@ export const games: Game[] = [
     emoji: "⭕",
     color: "sky",
   },
+  {
+    slug: "reaction-time",
+    title: "반응속도 테스트",
+    description: "화면이 초록색으로 바뀌는 순간 클릭! 내 반응 속도는 몇 ms?",
+    emoji: "⚡",
+    color: "pink",
+  },
 ];
