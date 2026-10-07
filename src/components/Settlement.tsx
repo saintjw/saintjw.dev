@@ -490,10 +490,11 @@ export default function Settlement() {
       if (!blob) throw new Error("capture failed");
       const filename = `${data.title || "대회"} 정산.png`;
       const file = new File([blob], filename, { type: "image/png" });
-      const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+      // 폴드·태블릿은 브라우저가 PC인 척하는 경우가 있어서 기기 이름 대신 터치 화면인지로 구분한다
+      const isTouch = window.matchMedia("(pointer: coarse)").matches;
 
       try {
-        if (isMobile && navigator.canShare?.({ files: [file] })) {
+        if (isTouch && navigator.canShare?.({ files: [file] })) {
           await navigator.share({ files: [file] });
         } else {
           await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
