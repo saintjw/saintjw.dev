@@ -1,0 +1,17 @@
+{
+  "id": "/settlement",
+  "name": "배구팀 대회 정산",
+  "short_name": "대회 정산",
+  "description": "참석 명단과 수입·지출을 넣으면 1/n로 정산해주는 계산기",
+  "lang": "ko",
+  "start_url": "/settlement",
+  "scope": "/settlement",
+  "display": "standalone",
+  "background_color": "#faf7ff",
+  "theme_color": "#b39ddb",
+  "icons": [
+    { "src": "/settlement/app-icon/192", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/settlement/app-icon/512", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/settlement/app-icon/512", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
