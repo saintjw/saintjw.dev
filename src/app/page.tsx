@@ -2,6 +2,8 @@ import Link from "next/link";
 import { getCategories, getLatestPosts, type TistoryCategory, type TistoryPost } from "@/lib/tistory";
 import { categoryDescriptions } from "@/lib/blogCategories";
 import { games } from "@/lib/games";
+import { getAllPosts } from "@/lib/posts";
+import { getTopic } from "@/lib/topics";
 
 export const revalidate = 3600;
 
@@ -34,6 +36,10 @@ export default async function Home() {
   const total = categories.reduce((sum, c) => sum + c.count, 0);
   // 글이 1~2편뿐인 카테고리는 대문에서는 빼고 블로그 페이지에서만 보여준다.
   const topics = categories.filter((c) => c.count >= 5);
+  const sitePosts = getAllPosts().slice(0, 3);
+  // 보이는 섹션 순서대로 01, 02, ... 번호를 붙인다.
+  let sectionNo = 0;
+  const nextNo = () => String(++sectionNo).padStart(2, "0");
 
   return (
     <div className="mx-auto max-w-4xl px-4 sm:px-6">
@@ -96,10 +102,35 @@ export default async function Home() {
         )}
       </section>
 
+      {/* Site posts */}
+      {sitePosts.length > 0 && (
+        <section className="pb-20">
+          <SectionHead index={nextNo()} title="새로 쓴 글" href="/posts" cta="전체 보기" />
+          <ul className="mt-6 grid gap-3 sm:grid-cols-3">
+            {sitePosts.map((p) => (
+              <li key={p.slug}>
+                <Link
+                  href={`/posts/${p.slug}`}
+                  className="group flex h-full flex-col rounded-2xl border border-border bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-accent"
+                >
+                  <span className="font-mono text-xs text-muted">
+                    {getTopic(p.topic)?.name} · {p.date}
+                  </span>
+                  <h3 className="mt-2 font-semibold leading-snug text-foreground group-hover:text-accent-strong">
+                    {p.title}
+                  </h3>
+                  <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted">{p.description}</p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       {/* Topics */}
       {topics.length > 0 && (
         <section className="pb-20">
-          <SectionHead index="01" title="기록하는 주제" href="/blog" cta="전체 보기" />
+          <SectionHead index={nextNo()} title="블로그 주제" href="/blog" cta="전체 보기" />
           <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {topics.map((c) => (
               <li key={c.name}>
@@ -126,7 +157,7 @@ export default async function Home() {
       {/* Recent posts */}
       {posts.length > 0 && (
         <section className="pb-20">
-          <SectionHead index="02" title="최근 글" href="/blog" cta="더 보기" />
+          <SectionHead index={nextNo()} title="블로그 최근 글" href="/blog" cta="더 보기" />
           <ul>
             {posts.map((p) => (
               <li key={p.url} className="border-b border-border/60">
@@ -154,7 +185,7 @@ export default async function Home() {
 
       {/* Elsewhere */}
       <section className="pb-24">
-        <SectionHead index={posts.length > 0 ? "03" : "01"} title="그 밖의 것들" />
+        <SectionHead index={nextNo()} title="그 밖의 것들" />
         <div className="mt-6 grid gap-3 sm:grid-cols-2">
           <Link
             href="/games"
