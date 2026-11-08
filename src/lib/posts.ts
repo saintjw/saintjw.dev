@@ -18,6 +18,7 @@ export type PostMeta = {
   tags: string[];
   draft: boolean;
   readingMinutes: number;
+  image?: string; // 본문 첫 이미지. SNS 미리보기 이미지로 쓴다.
 };
 
 export type Post = PostMeta & { html: string };
@@ -30,6 +31,13 @@ const markdown = new Marked({
   gfm: true,
   renderer: {
     html: ({ text }) => escapeHtml(text),
+    // 이미지는 캡션(마크다운 title)이 있으면 figure로 감싸고, 늦게 불러오게 한다.
+    image: ({ href, title, text }) => {
+      const img = `<img src="${escapeHtml(href)}" alt="${escapeHtml(text)}" loading="lazy" decoding="async">`;
+      return title
+        ? `<figure>${img}<figcaption>${escapeHtml(title)}</figcaption></figure>`
+        : img;
+    },
   },
 });
 
@@ -65,6 +73,7 @@ function parseFile(file: string): Post {
   }
 
   const chars = content.replace(/\s/g, "").length;
+  const firstImage = content.match(/!\[[^\]]*\]\((\/[^)\s]+)/)?.[1];
   return {
     slug,
     title: data.title.trim(),
@@ -75,6 +84,7 @@ function parseFile(file: string): Post {
     tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
     draft: data.draft === true,
     readingMinutes: Math.max(1, Math.round(chars / 500)),
+    image: firstImage,
     html: markdown.parse(content) as string,
   };
 }

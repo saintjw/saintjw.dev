@@ -24,8 +24,13 @@ export async function generateMetadata({ params }: PageProps<"/posts/[slug]">): 
       publishedTime: post.date,
       modifiedTime: post.updated ?? post.date,
       tags: post.tags,
+      ...(post.image && { images: [post.image] }),
     },
-    twitter: { title: post.title, description: post.description },
+    twitter: {
+      title: post.title,
+      description: post.description,
+      ...(post.image && { images: [post.image] }),
+    },
     robots: post.draft ? { index: false, follow: false } : undefined,
   };
 }
@@ -49,6 +54,7 @@ export default async function PostPage({ params }: PageProps<"/posts/[slug]">) {
     dateModified: post.updated ?? post.date,
     author: { "@type": "Person", name: "saintjw", url: "https://saintjw-dev.vercel.app" },
     keywords: post.tags.join(", "),
+    ...(post.image && { image: `https://saintjw-dev.vercel.app${post.image}` }),
   };
 
   return (

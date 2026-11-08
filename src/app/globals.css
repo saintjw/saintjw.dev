@@ -129,3 +129,12 @@ body {
 .prose :where(pre) {
   border: 1px solid var(--border);
 }
+.prose :where(img) {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+}
+.prose :where(figcaption) {
+  text-align: center;
+}
