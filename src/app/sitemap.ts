@@ -12,6 +12,8 @@ const routes = [
   "/games/sky-fighter",
   "/projects",
   "/guestbook",
+  "/now",
+  "/uses",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

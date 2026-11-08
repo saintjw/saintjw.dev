@@ -180,6 +180,30 @@ export default async function Home() {
               둘러보기 →
             </span>
           </Link>
+          <Link
+            href="/now"
+            className="group rounded-2xl border border-border bg-card p-6 transition-all hover:-translate-y-0.5 hover:border-accent"
+          >
+            <h3 className="font-semibold text-foreground">요즘</h3>
+            <p className="mt-2 text-sm text-muted">
+              지금 쓰고, 만들고, 준비하는 것들. 한 달에 한 번쯤 고쳐요.
+            </p>
+            <span className="mt-4 inline-block text-sm text-muted transition-colors group-hover:text-foreground">
+              근황 보기 →
+            </span>
+          </Link>
+          <Link
+            href="/uses"
+            className="group rounded-2xl border border-border bg-card p-6 transition-all hover:-translate-y-0.5 hover:border-accent"
+          >
+            <h3 className="font-semibold text-foreground">쓰는 것들</h3>
+            <p className="mt-2 text-sm text-muted">
+              매일 쓰는 기기와 도구, 서비스를 모아둡니다.
+            </p>
+            <span className="mt-4 inline-block text-sm text-muted transition-colors group-hover:text-foreground">
+              구경하기 →
+            </span>
+          </Link>
         </div>
       </section>
     </div>
