@@ -36,7 +36,7 @@ export function DateStamp({
     <time
       dateTime={date}
       className={`stamp text-sm ${className}`}
-      style={{ color: color === "yellow" ? "#c98a12" : tabVar(color) }}
+      style={{ color: color === "yellow" ? "var(--stamp-yellow)" : tabVar(color) }}
     >
       {full ? d.full : d.short}
       <span className="text-xs">{d.day}</span>
