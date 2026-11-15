@@ -11,19 +11,17 @@ const links = [
 
 export default function Nav() {
   return (
-    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-md">
-      <nav className="mx-auto flex max-w-4xl items-center justify-between px-4 py-4 sm:px-6">
-        <Link href="/" className="text-lg font-semibold tracking-tight text-foreground">
-          saintjw<span className="text-accent">.</span>
+    <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-sm">
+      <nav className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
+        <Link href="/" className="group flex items-baseline gap-1.5 text-foreground">
+          <span className="font-display text-xl sm:text-2xl">saintjw</span>
+          <span className="hidden text-sm text-muted sm:inline">의 다이어리</span>
         </Link>
-        <div className="flex items-center gap-3 sm:gap-6">
-          <ul className="flex items-center gap-3 whitespace-nowrap text-xs text-muted sm:gap-6 sm:text-sm [@media(display-mode:standalone)]:hidden">
+        <div className="flex items-center gap-2 sm:gap-5">
+          <ul className="flex items-center gap-3.5 whitespace-nowrap text-sm text-muted sm:gap-6 sm:text-[15px] [@media(display-mode:standalone)]:hidden">
             {links.map((link) => (
               <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="transition-colors hover:text-foreground"
-                >
+                <Link href={link.href} className="marker-link transition-colors hover:text-foreground">
                   {link.label}
                 </Link>
               </li>

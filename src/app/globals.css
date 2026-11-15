@@ -1,20 +1,34 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/*
+ * 다이어리 속지: 모눈 바탕 위에 흰 속지가 놓이고, 주제는 색 인덱스 탭이 맡는다.
+ * 밤에는 같은 다이어리를 스탠드 불빛 아래에서 펼친 느낌.
+ */
 :root {
-  --background: #faf7ff;
-  --background-alt: #f2f7fb;
-  --foreground: #3f3a52;
-  --muted: #837c98;
-  --card: #ffffff;
-  --border: #e7e1f5;
-  --accent: #b39ddb;
-  --accent-strong: #7b5cc0;
-  --accent-soft: #e8defc;
-  --mint: #cdeee0;
-  --peach: #ffe1cf;
-  --sky: #d3e6fb;
-  --pink: #fbdce6;
+  --background: #fbfaf6; /* 모눈 바탕 */
+  --background-alt: #f4f2ec;
+  --grid: #dce3ea;
+  --foreground: #22262b; /* 잉크 */
+  --muted: #646a72;
+  --card: #ffffff; /* 속지 */
+  --border: #e2e1da;
+  --rule: #e9e7df; /* 줄 노트 선 */
+  --accent: #4c7bd9;
+  --accent-strong: #2f5fbf;
+  --accent-soft: #fff0c2; /* 형광펜 */
+  --highlight: #ffe48a;
+  --tab-yellow: #f2b544;
+  --tab-leaf: #8fc17a;
+  --tab-blue: #4c7bd9;
+  --tab-rose: #ee9a9a;
+  --tab-ink: #22262b;
+  --tab-blue-ink: #ffffff;
+  --mint: #e1f0d8;
+  --peach: #fde9c2;
+  --sky: #dce7fa;
+  --pink: #fbe0e0;
+  --sheet-shadow: 0 1px 1px rgba(34, 38, 43, 0.06), 0 14px 32px -18px rgba(34, 38, 43, 0.35);
 }
 
 @theme inline {
@@ -24,103 +38,272 @@
   --color-muted: var(--muted);
   --color-card: var(--card);
   --color-border: var(--border);
+  --color-rule: var(--rule);
   --color-accent: var(--accent);
   --color-accent-strong: var(--accent-strong);
   --color-accent-soft: var(--accent-soft);
+  --color-highlight: var(--highlight);
+  --color-tab-yellow: var(--tab-yellow);
+  --color-tab-leaf: var(--tab-leaf);
+  --color-tab-blue: var(--tab-blue);
+  --color-tab-rose: var(--tab-rose);
   --color-mint: var(--mint);
   --color-peach: var(--peach);
   --color-sky: var(--sky);
   --color-pink: var(--pink);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #1c1a24;
-    --background-alt: #221f2c;
-    --foreground: #ede9f7;
-    --muted: #a79fc0;
-    --card: #252231;
-    --border: #35304a;
-    --accent: #c3aef0;
-    --accent-strong: #c9b6f5;
-    --accent-soft: #33294a;
-    --mint: #244a3d;
-    --peach: #4a3428;
-    --sky: #253a4f;
-    --pink: #4a2b3a;
-  }
+  --font-sans: "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  --font-display: var(--font-gowun), "Pretendard Variable", "Malgun Gothic", sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
 :root.dark {
-  --background: #1c1a24;
-  --background-alt: #221f2c;
-  --foreground: #ede9f7;
-  --muted: #a79fc0;
-  --card: #252231;
-  --border: #35304a;
-  --accent: #c3aef0;
-  --accent-strong: #c9b6f5;
-  --accent-soft: #33294a;
-  --mint: #244a3d;
-  --peach: #4a3428;
-  --sky: #253a4f;
-  --pink: #4a2b3a;
+  --background: #1b1e24;
+  --background-alt: #171a1f;
+  --grid: #272c34;
+  --foreground: #e9e6de;
+  --muted: #a5abb4;
+  --card: #23272e;
+  --border: #353b45;
+  --rule: #2e333c;
+  --accent: #7c9fe6;
+  --accent-strong: #9db8f0;
+  --accent-soft: #3d3622;
+  --highlight: #6b5a22;
+  --tab-yellow: #d9a43c;
+  --tab-leaf: #7eaa6a;
+  --tab-blue: #7c9fe6;
+  --tab-rose: #d98a8a;
+  --tab-ink: #1b1e24;
+  --tab-blue-ink: #1b1e24;
+  --mint: #26362a;
+  --peach: #3d3322;
+  --sky: #243149;
+  --pink: #3e2a2c;
+  --sheet-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), 0 18px 36px -18px rgba(0, 0, 0, 0.7);
 }
 
-:root.light {
-  --background: #faf7ff;
-  --background-alt: #f2f7fb;
-  --foreground: #3f3a52;
-  --muted: #837c98;
-  --card: #ffffff;
-  --border: #e7e1f5;
-  --accent: #b39ddb;
-  --accent-strong: #7b5cc0;
-  --accent-soft: #e8defc;
-  --mint: #cdeee0;
-  --peach: #ffe1cf;
-  --sky: #d3e6fb;
-  --pink: #fbdce6;
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --background: #1b1e24;
+    --background-alt: #171a1f;
+    --grid: #272c34;
+    --foreground: #e9e6de;
+    --muted: #a5abb4;
+    --card: #23272e;
+    --border: #353b45;
+    --rule: #2e333c;
+    --accent: #7c9fe6;
+    --accent-strong: #9db8f0;
+    --accent-soft: #3d3622;
+    --highlight: #6b5a22;
+    --tab-yellow: #d9a43c;
+    --tab-leaf: #7eaa6a;
+    --tab-blue: #7c9fe6;
+    --tab-rose: #d98a8a;
+    --tab-ink: #1b1e24;
+    --tab-blue-ink: #1b1e24;
+    --mint: #26362a;
+    --peach: #3d3322;
+    --sky: #243149;
+    --pink: #3e2a2c;
+    --sheet-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), 0 18px 36px -18px rgba(0, 0, 0, 0.7);
+  }
 }
 
 * {
   border-color: var(--border);
 }
 
+html {
+  scrollbar-color: color-mix(in srgb, var(--muted) 45%, transparent) transparent;
+}
+
 body {
-  background: linear-gradient(160deg, var(--background) 0%, var(--background-alt) 100%);
+  background-color: var(--background);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: -1px -1px;
   color: var(--foreground);
-  font-family: var(--font-sans), "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  font-family: var(--font-sans);
+  font-feature-settings: "tnum" 0;
+  word-break: keep-all;
+}
+
+::selection {
+  background: var(--highlight);
+  color: var(--foreground);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── 속지: 왼쪽이 묶인 한 장, 뒤에 한 장이 살짝 비껴 깔려 있다 ── */
+.sheet {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px 16px 16px 4px;
+  box-shadow: var(--sheet-shadow);
+}
+.sheet::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: inherit;
+  transform: translate(7px, 7px) rotate(0.5deg);
+  box-shadow: var(--sheet-shadow);
+}
+
+/* 줄 노트: 목록 사이를 가는 점선으로 나눈다 */
+.ruled > * + * {
+  border-top: 1px dashed var(--rule);
+}
+
+/* ── 마스킹테이프 ── */
+.tape {
+  position: absolute;
+  height: 28px;
+  width: 116px;
+  opacity: 0.78;
+  background: var(--tape, var(--tab-yellow));
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0 9px,
+    rgba(255, 255, 255, 0.18) 9px 11px
+  );
+  clip-path: polygon(0 8%, 4% 0, 96% 6%, 100% 0, 98% 50%, 100% 100%, 4% 94%, 0 100%, 2% 50%);
+  pointer-events: none;
+}
+
+/* ── 고무 날짜 도장 ── */
+.stamp {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5em;
+  border: 2px solid currentColor;
+  border-radius: 8px;
+  padding: 0.3em 0.8em;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  transform: rotate(-2.5deg);
+  opacity: 0.92;
+}
+
+/* ── 형광펜 ── */
+.marker {
+  background-image: linear-gradient(transparent 58%, var(--highlight) 58%, var(--highlight) 92%, transparent 92%);
+  background-repeat: no-repeat;
+  padding: 0 0.08em;
+}
+.marker-link {
+  background-image: linear-gradient(transparent 60%, var(--highlight) 60%, var(--highlight) 94%, transparent 94%);
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  transition: background-size 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.marker-link:hover,
+.marker-link:focus-visible,
+.group:hover .marker-link,
+.group:focus-visible .marker-link {
+  background-size: 100% 100%;
+}
+
+/* ── 포스트잇 ── */
+.note {
+  position: relative;
+  border-radius: 2px 2px 14px 2px;
+  box-shadow: 0 1px 1px rgba(34, 38, 43, 0.08), 0 10px 18px -12px rgba(34, 38, 43, 0.45);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s;
+}
+.note:hover,
+.note:focus-visible {
+  transform: rotate(0deg) translateY(-3px) !important;
+  box-shadow: 0 1px 1px rgba(34, 38, 43, 0.08), 0 16px 24px -12px rgba(34, 38, 43, 0.45);
+}
+
+/* ── 인덱스 탭 ── */
+.tab {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), padding 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tab,
+  .note,
+  .marker-link {
+    transition: none;
+  }
 }
 
 /* 글 본문(prose) 색을 사이트 테마 토큰에 맞춘다. 라이트·다크 모두 자동 적용 */
 .prose {
-  --tw-prose-body: color-mix(in srgb, var(--foreground) 88%, transparent);
+  --tw-prose-body: color-mix(in srgb, var(--foreground) 86%, var(--card));
   --tw-prose-headings: var(--foreground);
   --tw-prose-lead: var(--muted);
   --tw-prose-links: var(--accent-strong);
   --tw-prose-bold: var(--foreground);
   --tw-prose-counters: var(--muted);
   --tw-prose-bullets: var(--muted);
-  --tw-prose-hr: var(--border);
+  --tw-prose-hr: var(--rule);
   --tw-prose-quotes: var(--foreground);
-  --tw-prose-quote-borders: var(--accent);
+  --tw-prose-quote-borders: var(--tab-yellow);
   --tw-prose-captions: var(--muted);
   --tw-prose-code: var(--foreground);
   --tw-prose-pre-code: var(--foreground);
-  --tw-prose-pre-bg: var(--card);
+  --tw-prose-pre-bg: var(--background-alt);
   --tw-prose-th-borders: var(--border);
-  --tw-prose-td-borders: var(--border);
+  --tw-prose-td-borders: var(--rule);
   line-height: 1.85;
   word-break: keep-all;
 }
+.prose :where(h2) {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+.prose :where(h2)::before {
+  content: "";
+  display: inline-block;
+  width: 0.55em;
+  height: 0.55em;
+  margin-right: 0.5em;
+  border-radius: 2px;
+  background: var(--topic, var(--tab-yellow));
+  transform: translateY(-0.08em) rotate(-6deg);
+}
+.prose :where(a) {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  background-image: linear-gradient(transparent 60%, var(--highlight) 60%, var(--highlight) 94%, transparent 94%);
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  transition: background-size 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.prose :where(a):hover {
+  background-size: 100% 100%;
+}
+.prose :where(strong) {
+  background-image: linear-gradient(transparent 62%, var(--accent-soft) 62%);
+}
 .prose :where(code):not(:where(pre *)) {
-  background: var(--accent-soft);
+  background: var(--background-alt);
+  border: 1px solid var(--rule);
   border-radius: 0.375rem;
-  padding: 0.15em 0.4em;
+  padding: 0.1em 0.4em;
   font-weight: 500;
+  font-size: 0.85em;
 }
 .prose :where(code):not(:where(pre *))::before,
 .prose :where(code):not(:where(pre *))::after {
@@ -128,13 +311,28 @@ body {
 }
 .prose :where(pre) {
   border: 1px solid var(--border);
+  border-radius: 0.75rem;
+}
+.prose :where(blockquote) {
+  font-style: normal;
+  border-left-width: 0;
+  background: var(--accent-soft);
+  border-radius: 2px 2px 12px 2px;
+  padding: 0.9em 1.2em;
+}
+.prose :where(blockquote p:first-of-type)::before,
+.prose :where(blockquote p:last-of-type)::after {
+  content: none;
 }
 .prose :where(img) {
   width: 100%;
   height: auto;
   border: 1px solid var(--border);
-  border-radius: 1rem;
+  border-radius: 0.75rem;
 }
 .prose :where(figcaption) {
   text-align: center;
+}
+.prose :where(table) {
+  font-variant-numeric: tabular-nums;
 }

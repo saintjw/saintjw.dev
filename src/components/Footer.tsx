@@ -9,14 +9,17 @@ const links = [
 
 export default function Footer() {
   return (
-    <footer className="mt-auto border-t border-border/60 py-8">
-      <div className="mx-auto flex max-w-4xl flex-col gap-3 px-4 text-sm text-muted sm:flex-row sm:items-center sm:justify-between sm:px-6">
-        <span>© {new Date().getFullYear()} saintjw · made with Next.js</span>
+    <footer className="mt-auto border-t border-border/70 bg-background/90 py-10">
+      <div className="mx-auto flex max-w-5xl flex-col gap-4 px-4 text-sm text-muted sm:flex-row sm:items-center sm:justify-between sm:px-6">
+        <p>
+          <span className="font-display text-base text-foreground">saintjw</span>의 다이어리 · ©{" "}
+          {new Date().getFullYear()}
+        </p>
         <nav aria-label="보조 메뉴">
-          <ul className="flex gap-5">
+          <ul className="flex flex-wrap gap-x-5 gap-y-2">
             {links.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} className="transition-colors hover:text-foreground">
+                <Link href={link.href} className="marker-link transition-colors hover:text-foreground">
                   {link.label}
                 </Link>
               </li>

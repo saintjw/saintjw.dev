@@ -3,16 +3,19 @@ export const topics = [
   {
     slug: "build-log",
     name: "만들기 기록",
+    tab: "yellow",
     description: "이 사이트와 게임, 도구를 만들며 부딪힌 문제와 풀어낸 과정.",
   },
   {
     slug: "ai-work",
     name: "AI와 일하기",
+    tab: "leaf",
     description: "AI 도구로 실제 일을 덜어낸 경험. 무엇이 됐고 무엇이 안 됐는지.",
   },
   {
     slug: "tech-explained",
     name: "쉽게 읽는 IT",
+    tab: "blue",
     description: "화제가 된 기술과 개념을 개발자가 아니어도 읽히게 풀어 씁니다.",
   },
 ] as const;
