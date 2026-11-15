@@ -147,3 +147,63 @@ export function SheetHeading({
     </div>
   );
 }
+
+/**
+ * 일반 페이지용 속지 한 장: 테이프, 제목, 소개, 본문.
+ * tabs를 주면 오른쪽 가장자리에 인덱스 탭이 꽂힌다.
+ */
+export function DiaryPage({
+  title,
+  intro,
+  color = "yellow",
+  tabs,
+  tabsLabel = "바로가기",
+  back,
+  stamp,
+  wide = false,
+  children,
+}: {
+  title: string;
+  intro?: ReactNode;
+  color?: TabColor;
+  tabs?: IndexTab[];
+  tabsLabel?: string;
+  back?: { href: string; label: string };
+  stamp?: ReactNode;
+  wide?: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <div
+      className={`mx-auto px-3 pt-8 pb-20 sm:px-6 sm:pt-12 ${wide ? "max-w-5xl" : "max-w-[56rem]"} ${tabs ? "lg:pr-16" : ""}`}
+    >
+      {back && (
+        <Link
+          href={back.href}
+          className="marker-link ml-1 text-sm text-muted hover:text-foreground"
+        >
+          ← {back.label}
+        </Link>
+      )}
+      <div className={`relative ${back ? "mt-5" : ""}`}>
+        {tabs && <IndexTabs tabs={tabs} label={tabsLabel} />}
+        <div className="sheet px-5 pt-10 pb-10 sm:px-12 sm:pt-14 sm:pb-12 lg:px-16">
+          <Tape
+            color={color}
+            className={`-top-3.5 left-14 -rotate-2 ${tabs ? "hidden lg:block" : ""}`}
+          />
+          {stamp && <div className="mb-6">{stamp}</div>}
+          <SheetHeading as="h1" color={color}>
+            {title}
+          </SheetHeading>
+          {intro && (
+            <div className="mt-4 max-w-2xl leading-relaxed text-muted">
+              {intro}
+            </div>
+          )}
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+}

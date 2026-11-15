@@ -36,3 +36,20 @@ export const games: Game[] = [
     color: "mint",
   },
 ];
+
+const TAB_FOR_COLOR = {
+  mint: "leaf",
+  peach: "yellow",
+  sky: "blue",
+  pink: "rose",
+} as const;
+
+/** 게임 페이지 속지 가장자리에 꽂을 인덱스 탭 */
+export function gameTabs(current: string) {
+  return games.map((g) => ({
+    href: `/games/${g.slug}`,
+    label: g.title,
+    color: TAB_FOR_COLOR[g.color],
+    active: g.slug === current,
+  }));
+}
