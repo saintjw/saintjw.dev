@@ -108,7 +108,7 @@ export default async function PostPage({ params }: PageProps<"/posts/[slug]">) {
         >
           <Tape
             color={color}
-            className="-bottom-3 right-6 w-16 rotate-3 lg:bottom-auto lg:-top-3.5 lg:right-auto lg:left-14 lg:w-[116px] lg:-rotate-3"
+            className="-top-3 right-4 w-14 rotate-6 lg:-top-3.5 lg:right-auto lg:left-14 lg:w-[116px] lg:w-[116px] lg:-rotate-3"
           />
 
           <header className="border-b border-dashed border-rule pb-8">

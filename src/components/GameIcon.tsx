@@ -2,8 +2,9 @@
 const paths: Record<string, React.ReactNode> = {
   "tic-tac-toe": (
     <>
-      <path d="M9 3.5v17M15 3.5v17M3.5 9h17M3.5 15h17" />
-      <circle cx="12" cy="12" r="1.6" />
+      <path d="M9 3v18M15 3v18M3 9h18M3 15h18" />
+      <circle cx="12" cy="12" r="1.7" />
+      <path d="M16.6 4.6l2.8 2.8M19.4 4.6l-2.8 2.8" />
     </>
   ),
   "reaction-time": (
@@ -13,12 +14,11 @@ const paths: Record<string, React.ReactNode> = {
   ),
   "whack-a-mole": (
     <>
-      <path d="M4 20.5h16" />
-      <path d="M6.5 20.5v-6a5.5 5.5 0 0 1 11 0v6" />
-      <circle cx="10" cy="13.2" r=".6" fill="currentColor" />
-      <circle cx="14" cy="13.2" r=".6" fill="currentColor" />
-      <path d="M11 16.2c.6.5 1.4.5 2 0" />
-      <path d="M15.5 3.5l4 4M17.5 5.5 14 9" />
+      <path d="M2.5 20c2.2-1.8 16.8-1.8 19 0" />
+      <path d="M6.5 18.6V13a5.5 5.5 0 0 1 11 0v5.6" />
+      <circle cx="10" cy="12" r=".9" fill="currentColor" stroke="none" />
+      <circle cx="14" cy="12" r=".9" fill="currentColor" stroke="none" />
+      <path d="M11 15h2" />
     </>
   ),
   "sky-fighter": (
@@ -41,8 +41,8 @@ export default function GameIcon({
     <svg
       aria-hidden
       viewBox="0 0 24 24"
-      width="32"
-      height="32"
+      width="36"
+      height="36"
       fill="none"
       stroke="currentColor"
       strokeWidth="1.8"

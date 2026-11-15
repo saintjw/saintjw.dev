@@ -172,6 +172,7 @@ body {
 }
 
 /* ── 마스킹테이프 ── */
+@layer components {
 .tape {
   position: absolute;
   height: 28px;
@@ -185,6 +186,7 @@ body {
   );
   clip-path: polygon(0 8%, 4% 0, 96% 6%, 100% 0, 98% 50%, 100% 100%, 4% 94%, 0 100%, 2% 50%);
   pointer-events: none;
+}
 }
 
 /* ── 고무 날짜 도장 ── */
