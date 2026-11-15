@@ -89,7 +89,7 @@ export default async function Home() {
         <section className="sheet px-5 pt-10 pb-10 sm:px-12 sm:pt-14 sm:pb-12 lg:px-16">
           <Tape
             color="yellow"
-            className="-top-3.5 left-14 hidden -rotate-3 lg:block"
+            className="-bottom-3 right-6 w-16 rotate-3 lg:bottom-auto lg:-top-3.5 lg:right-auto lg:left-14 lg:w-[116px] lg:-rotate-3"
           />
           <Tape
             color="blue"

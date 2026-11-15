@@ -49,7 +49,7 @@ export function PostsSheet({
         <div className="sheet px-5 pt-10 pb-8 sm:px-12 sm:pt-14 sm:pb-12">
           <Tape
             color={color}
-            className="-top-3.5 left-14 hidden -rotate-2 lg:block"
+            className="-bottom-3 right-6 w-16 rotate-3 lg:bottom-auto lg:-top-3.5 lg:right-auto lg:left-14 lg:w-[116px] lg:-rotate-2"
           />
           <SheetHeading as="h1" color={color}>
             {title}

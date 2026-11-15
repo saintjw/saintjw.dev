@@ -5,6 +5,7 @@ import { getAllPosts, getPost } from "@/lib/posts";
 import type { CSSProperties } from "react";
 import { getTopic, topics } from "@/lib/topics";
 import { topicCounts } from "@/components/PostList";
+import AdSlot from "@/components/AdSlot";
 import {
   DateStamp,
   IndexTabs,
@@ -107,7 +108,7 @@ export default async function PostPage({ params }: PageProps<"/posts/[slug]">) {
         >
           <Tape
             color={color}
-            className="-top-3.5 left-14 hidden -rotate-3 lg:block"
+            className="-bottom-3 right-6 w-16 rotate-3 lg:bottom-auto lg:-top-3.5 lg:right-auto lg:left-14 lg:w-[116px] lg:-rotate-3"
           />
 
           <header className="border-b border-dashed border-rule pb-8">
@@ -145,10 +146,14 @@ export default async function PostPage({ params }: PageProps<"/posts/[slug]">) {
             </p>
           </header>
 
+          <AdSlot slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_TOP} />
+
           <div
             className="prose prose-lg mt-10 max-w-none"
             dangerouslySetInnerHTML={{ __html: post.html }}
           />
+
+          <AdSlot slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_BOTTOM} />
 
           {post.tags.length > 0 && (
             <ul className="mt-12 flex flex-wrap gap-x-3 gap-y-1.5 text-sm text-muted">

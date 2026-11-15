@@ -2,6 +2,7 @@ import Link from "next/link";
 import { games } from "@/lib/games";
 import { pageMetadata } from "@/lib/metadata";
 import { DiaryPage } from "@/components/Diary";
+import GameIcon from "@/components/GameIcon";
 
 export const metadata = pageMetadata(
   "게임",
@@ -29,9 +30,7 @@ export default function GamesPage() {
                 transform: `rotate(${tilts[i % tilts.length]})`,
               }}
             >
-              <span aria-hidden className="text-3xl">
-                {game.emoji}
-              </span>
+              <GameIcon slug={game.slug} />
               <h2 className="mt-3 font-display text-2xl">{game.title}</h2>
               <p className="mt-2 flex-1 text-sm leading-relaxed text-foreground/80">
                 {game.description}

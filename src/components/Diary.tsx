@@ -91,14 +91,14 @@ export function IndexTabs({
             <Link
               href={t.href}
               aria-current={t.active ? "page" : undefined}
-              className={`tab flex items-center gap-1.5 whitespace-nowrap rounded-t-lg px-3.5 text-sm font-semibold lg:rounded-t-none lg:rounded-r-lg lg:px-0 lg:py-4 lg:[writing-mode:vertical-rl] lg:[text-orientation:upright] lg:tracking-[-0.12em] ${
+              className={`tab flex items-center gap-1 whitespace-nowrap rounded-t-lg px-2.5 text-[13px] font-semibold sm:gap-1.5 sm:px-3.5 sm:text-sm lg:rounded-t-none lg:rounded-r-lg lg:px-0 lg:py-4 lg:[writing-mode:vertical-rl] ${
                 t.active
                   ? "pt-2.5 pb-2 lg:w-12 lg:translate-x-0"
                   : "mt-1.5 pt-1.5 pb-1.5 opacity-90 hover:mt-0 hover:pt-3 hover:opacity-100 lg:mt-0 lg:w-10 lg:-translate-x-1 lg:hover:mt-0 lg:hover:translate-x-1 lg:hover:pt-4 focus-visible:opacity-100"
               }`}
               style={{ background: tabVar(t.color), color: tabInk(t.color) }}
             >
-              {t.label}
+              <TabLabel text={t.label} />
               {t.count !== undefined && (
                 <span className="tabular text-xs font-medium opacity-75 lg:hidden">
                   {t.count}
@@ -109,6 +109,31 @@ export function IndexTabs({
         ))}
       </ul>
     </nav>
+  );
+}
+
+/**
+ * 세로 탭 글자: 한글은 바로 세우고, "AI"·"IT" 같은 라틴 묶음은 한 칸에 가로로 모아 세운다.
+ * 낱말 사이 공백은 세로로 읽을 때 큰 구멍이 되므로 좁은 간격으로 줄인다.
+ */
+function TabLabel({ text }: { text: string }) {
+  const parts = text.split(/([A-Za-z]+| )/).filter(Boolean);
+  return (
+    <span>
+      {parts.map((p, i) =>
+        p === " " ? (
+          <span key={i} className="lg:inline-block lg:h-[0.3em]">
+            <span className="lg:hidden"> </span>
+          </span>
+        ) : /^[A-Za-z]+$/.test(p) ? (
+          <span key={i} className="lg:[text-combine-upright:all]">
+            {p}
+          </span>
+        ) : (
+          <span key={i}>{p}</span>
+        ),
+      )}
+    </span>
   );
 }
 
@@ -190,7 +215,11 @@ export function DiaryPage({
         <div className="sheet px-5 pt-10 pb-10 sm:px-12 sm:pt-14 sm:pb-12 lg:px-16">
           <Tape
             color={color}
-            className={`-top-3.5 left-14 -rotate-2 ${tabs ? "hidden lg:block" : ""}`}
+            className={
+              tabs
+                ? "-bottom-3 right-6 w-16 rotate-3 lg:bottom-auto lg:-top-3.5 lg:right-auto lg:left-14 lg:w-[116px] lg:-rotate-2"
+                : "-top-3.5 left-14 -rotate-2"
+            }
           />
           {stamp && <div className="mb-6">{stamp}</div>}
           <SheetHeading as="h1" color={color}>
