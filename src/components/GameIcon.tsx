@@ -2,9 +2,8 @@
 const paths: Record<string, React.ReactNode> = {
   "tic-tac-toe": (
     <>
-      <path d="M9 3v18M15 3v18M3 9h18M3 15h18" />
-      <circle cx="12" cy="12" r="1.7" />
-      <path d="M16.6 4.6l2.8 2.8M19.4 4.6l-2.8 2.8" />
+      <circle cx="7" cy="12" r="4.2" />
+      <path d="M14 7.8l6.4 8.4M20.4 7.8 14 16.2" />
     </>
   ),
   "reaction-time": (
