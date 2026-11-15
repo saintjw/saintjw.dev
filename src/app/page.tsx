@@ -103,13 +103,13 @@ export default async function Home() {
             </p>
           )}
 
-          <h1 className="mt-7 font-display text-[2.15rem] leading-[1.3] text-foreground text-balance sm:text-[3.4rem] sm:leading-[1.22]">
-            책상 앞의 하루와 <span className="marker">달리는 주말</span>을
-            기록합니다.
+          <h1 className="mt-7 font-display text-[1.85rem] leading-[1.35] text-foreground sm:text-[3.4rem] sm:leading-[1.22]">
+            어려운 건 쉽게 풀고,
+            <br /> 귀찮은 건{" "}
+            <span className="marker whitespace-nowrap">대신 찾아봤어요.</span>
           </h1>
-          <p className="mt-6 max-w-2xl text-[1.05rem] leading-[1.85] text-muted sm:text-lg">
-            일하는 몸과 마음을 돌보는 법, 러닝과 여행, 책상 위의 기기들, 생활 속
-            돈 공부까지. 직접 찾아보고 정리한 것들을 이곳에 차곡차곡 모아둡니다.
+          <p className="mt-6 text-lg text-muted sm:text-xl">
+            호기심 가득한 이의 탐구공간
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-3">
