@@ -35,6 +35,27 @@ export const games: Game[] = [
     emoji: "✈️",
     color: "mint",
   },
+  {
+    slug: "sudoku",
+    title: "오늘의 스도쿠",
+    description: "날마다 새로 나오는 퍼즐. 쉬움부터 어려움까지, 오늘은 몇 분 걸릴까요?",
+    emoji: "🔢",
+    color: "sky",
+  },
+  {
+    slug: "memory-match",
+    title: "짝 맞추기",
+    description: "스티커 카드를 뒤집어 같은 그림을 찾아요. 적게 뒤집을수록 고수!",
+    emoji: "🃏",
+    color: "pink",
+  },
+  {
+    slug: "chosung-quiz",
+    title: "초성 퀴즈",
+    description: "ㄱㅂ → 김밥! 초성만 보고 단어를 맞혀 보세요.",
+    emoji: "🔤",
+    color: "peach",
+  },
 ];
 
 const TAB_FOR_COLOR = {

@@ -25,6 +25,26 @@ const paths: Record<string, React.ReactNode> = {
       <path d="M12 2.8c1.2 1.3 1.6 3 1.6 4.8v3.6l6.4 4v2l-6.4-2v3.3l2 1.6v1.4L12 20.6l-3.6.9v-1.4l2-1.6v-3.3l-6.4 2v-2l6.4-4V7.6c0-1.8.4-3.5 1.6-4.8Z" />
     </>
   ),
+  sudoku: (
+    <>
+      <rect x="3.5" y="3.5" width="17" height="17" rx="2" />
+      <path d="M9.2 3.5v17M14.8 3.5v17M3.5 9.2h17M3.5 14.8h17" />
+    </>
+  ),
+  "memory-match": (
+    <>
+      <rect x="3" y="5.5" width="10" height="14" rx="1.8" transform="rotate(-8 8 12.5)" />
+      <rect x="11" y="4.5" width="10" height="14" rx="1.8" transform="rotate(8 16 11.5)" />
+      <path d="m16 9 .8 1.7 1.8.2-1.3 1.2.4 1.8-1.7-.9-1.6.9.3-1.8-1.3-1.2 1.8-.2Z" />
+    </>
+  ),
+  "chosung-quiz": (
+    <>
+      <path d="M3.5 6.5h6.5v7" />
+      <path d="M13.5 6v9.5h7V6M13.5 10.7h7" />
+      <path d="M4 19h16" />
+    </>
+  ),
 };
 
 export default function GameIcon({
