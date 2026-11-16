@@ -162,7 +162,14 @@ export default function ChosungQuiz() {
           feedback === "right" ? "bg-mint" : feedback === "wrong" ? "bg-pink" : feedback === "skip" ? "bg-peach" : "bg-card"
         }`}
       >
-        <p className="font-display text-5xl tracking-[0.2em] text-foreground sm:text-6xl" aria-label="초성">
+        <p
+          className={`break-keep text-center font-display text-foreground ${
+            word.answer.length > 8
+              ? "text-2xl leading-relaxed tracking-[0.12em] sm:text-3xl"
+              : "text-5xl tracking-[0.2em] sm:text-6xl"
+          }`}
+          aria-label="초성"
+        >
           {toChosung(word.answer)}
         </p>
         <p className="min-h-[1.5rem] text-center text-sm text-muted">
@@ -176,7 +183,7 @@ export default function ChosungQuiz() {
                 ? "아쉬워요, 다시 생각해 보세요"
                 : hinted
                   ? `힌트: ${word.hint}`
-                  : `${word.answer.length}글자`}
+                  : `${normalize(word.answer).length}글자${/\s/.test(word.answer) ? " · 띄어쓰기는 상관없어요" : ""}`}
         </p>
       </div>
 
