@@ -46,6 +46,11 @@ export const metadata: Metadata = {
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
   },
+  alternates: {
+    types: {
+      "application/rss+xml": [{ url: "/rss.xml", title: "saintjw.dev 글" }],
+    },
+  },
   verification: {
     other: {
       "naver-site-verification": "46d4304bfeceeab4ee4fe85d2ea431d0b88fa199",
