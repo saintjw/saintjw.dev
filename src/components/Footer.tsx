@@ -4,7 +4,7 @@ const links = [
   { href: "/projects", label: "프로젝트" },
   { href: "/now", label: "요즘" },
   { href: "/uses", label: "쓰는 것들" },
-  { href: "/guestbook", label: "방명록" },
+  { href: "/qna", label: "이야기방(Q&A)" },
   { href: "/privacy", label: "개인정보처리방침" },
 ];
 

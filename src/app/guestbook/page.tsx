@@ -1,21 +1,25 @@
+import Link from "next/link";
 import Giscus from "@/components/Giscus";
 import { pageMetadata } from "@/lib/metadata";
 import { DiaryPage } from "@/components/Diary";
 
 export const metadata = pageMetadata(
-  "방명록",
-  "GitHub 계정으로 로그인하고 방명록을 남겨보세요.",
+  "지난 방명록",
+  "GitHub 계정으로 남겨 주신 예전 방명록입니다. 새 이야기는 이야기방(Q&A)에 남겨 주세요.",
 );
 
 export default function GuestbookPage() {
   return (
     <DiaryPage
       color="yellow"
-      title="방명록"
+      title="지난 방명록"
       intro={
         <p>
-          다녀가셨다면 한 줄 남겨 주세요. GitHub 계정으로 로그인하면 댓글을 쓸
-          수 있어요.
+          GitHub로 남겨 주신 예전 방명록이에요. 이제는 로그인 없이{" "}
+          <Link href="/qna" className="marker-link text-foreground">
+            이야기방(Q&amp;A)
+          </Link>
+          에 편하게 남겨 주세요.
         </p>
       }
     >

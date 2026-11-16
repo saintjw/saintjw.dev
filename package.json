@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.20",
+    "@upstash/redis": "^1.41.0",
     "gray-matter": "^4.0.3",
     "html-to-image": "^1.11.13",
     "marked": "^18.1.3",

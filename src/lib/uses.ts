@@ -34,8 +34,8 @@ export const usesGroups: UseGroup[] = [
     title: "배포와 서비스",
     items: [
       { name: "Vercel", note: "GitHub에 푸시하면 몇 분 안에 사이트가 바뀝니다.", url: "https://vercel.com" },
-      { name: "GitHub", note: "코드 저장소. 방명록 댓글도 GitHub Discussions에 쌓여요.", url: "https://github.com/saintjw" },
-      { name: "giscus", note: "방명록 댓글 위젯.", url: "https://giscus.app" },
+      { name: "GitHub", note: "코드 저장소. 지난 방명록 댓글도 GitHub Discussions에 쌓여 있어요.", url: "https://github.com/saintjw" },
+      { name: "giscus", note: "지난 방명록 댓글 위젯.", url: "https://giscus.app" },
     ],
   },
   {

@@ -14,7 +14,7 @@ const routes = [
   "/games/whack-a-mole",
   "/games/sky-fighter",
   "/projects",
-  "/guestbook",
+  "/qna",
   "/now",
   "/uses",
   "/privacy",
