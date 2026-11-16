@@ -46,6 +46,11 @@ export const metadata: Metadata = {
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
   },
+  verification: {
+    other: {
+      "naver-site-verification": "46d4304bfeceeab4ee4fe85d2ea431d0b88fa199",
+    },
+  },
   other: {
     "google-adsense-account": ADSENSE_CLIENT,
   },
