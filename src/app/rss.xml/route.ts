@@ -6,8 +6,8 @@ import { getTopic } from "@/lib/topics";
 export const dynamic = "force-static";
 
 const SITE_URL = "https://saintjw.dev";
-const SITE_TITLE = "saintjw.dev";
-const SITE_DESCRIPTION = "개인 소개, 블로그, 그리고 작은 게임들을 모아둔 공간";
+const SITE_TITLE = "은결의 Serendipity";
+const SITE_DESCRIPTION = "호기심 가득한 개인 개발자의 탐구 공간. 어려운 건 쉽게, 귀찮은 지식은 간단하게.";
 
 function escapeXml(value: string): string {
   return value

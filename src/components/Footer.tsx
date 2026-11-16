@@ -13,7 +13,7 @@ export default function Footer() {
     <footer className="mt-auto border-t border-border/70 bg-background/90 py-10">
       <div className="mx-auto flex max-w-5xl flex-col gap-4 px-4 text-sm text-muted sm:flex-row sm:items-center sm:justify-between sm:px-6">
         <p>
-          <span className="font-display text-base text-foreground">saintjw</span>의 다이어리 · ©{" "}
+          <span className="font-display text-base text-foreground">은결의 Serendipity</span> · ©{" "}
           {new Date().getFullYear()}
         </p>
         <nav aria-label="보조 메뉴">

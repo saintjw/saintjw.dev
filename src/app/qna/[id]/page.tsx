@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: PageProps<"/qna/[id]">): Prom
   return {
     title: `Q. ${title}`,
     description,
-    openGraph: { title: `Q. ${title} · saintjw.dev`, description },
+    openGraph: { title: `Q. ${title} · 은결의 Serendipity`, description },
   };
 }
 

@@ -20,11 +20,6 @@ import {
 
 export const revalidate = 3600;
 
-const socials = [
-  { label: "GitHub", href: "https://github.com/saintjw" },
-  { label: "Email", href: "mailto:saintjw@hanmail.net" },
-];
-
 // 포스트잇 메모: 색과 기울기를 조금씩 다르게 붙인다.
 const notes = [
   {
@@ -78,7 +73,7 @@ export default async function Home() {
       label: t.name,
       color: t.tab as TabColor,
     })),
-    { href: "/blog", label: "블로그", color: "rose" as TabColor },
+    { href: "/blog", label: "잡학사전", color: "rose" as TabColor },
   ];
 
   return (
@@ -103,13 +98,18 @@ export default async function Home() {
             </p>
           )}
 
-          <h1 className="mt-7 font-display text-[1.85rem] leading-[1.35] text-foreground sm:text-[3.4rem] sm:leading-[1.22]">
-            어려운 건 쉽게 풀고,
-            <br /> 귀찮은 건{" "}
-            <span className="marker whitespace-nowrap">대신 찾아봤어요.</span>
+          <h1 className="mt-7 break-keep font-display text-[1.85rem] leading-[1.35] text-foreground sm:text-[3.2rem] sm:leading-[1.25]">
+            호기심 가득한 개인 개발자의{" "}
+            <span className="marker whitespace-nowrap">탐구 공간</span>입니다.
           </h1>
           <p className="mt-6 text-lg text-muted sm:text-xl">
-            호기심 가득한 이의 탐구공간
+            어려운 건 쉽게, 귀찮은 지식은 간단하게
+          </p>
+          <p className="mt-4 max-w-2xl break-keep text-[13px] leading-relaxed text-muted/90 sm:text-sm">
+            <span className="mr-1.5 font-semibold text-foreground/80">Serendipity란?</span>
+            뜻밖의 행운, 우연히 소중한 것을 발견하는 일을 말해요. 『세렌디프의 세 왕자』라는 옛이야기에서
+            나온 말로, 찾던 것 너머에서 생각지 못한 기쁨을 만나는 순간이죠. 이곳에서 그런 작은 발견을
+            만나시길 바라요.
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-3">
@@ -117,25 +117,14 @@ export default async function Home() {
               href="/posts"
               className="rounded-full bg-foreground px-6 py-3 text-sm font-semibold text-background transition-transform hover:-translate-y-0.5"
             >
-              글 읽으러 가기
+              꿀팁 글모음
             </Link>
             <Link
               href="/games"
               className="rounded-full border border-foreground/25 px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:border-foreground hover:bg-accent-soft"
             >
-              게임 한 판
+              게임 모음
             </Link>
-            <div className="ml-2 flex gap-4 text-sm text-muted">
-              {socials.map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  className="marker-link hover:text-foreground"
-                >
-                  {s.label}
-                </a>
-              ))}
-            </div>
           </div>
 
           {sitePosts.length > 0 && (
@@ -186,8 +175,8 @@ export default async function Home() {
           />
           {blogTopics.length > 0 && (
             <div>
-              <SheetHeading href="/blog" cta="블로그로" color="rose">
-                블로그 색인
+              <SheetHeading href="/blog" cta="잡학사전으로" color="rose">
+                잡학사전 색인
               </SheetHeading>
               <p className="mt-3 text-sm text-muted">
                 티스토리에 쓴 글{" "}
@@ -229,7 +218,7 @@ export default async function Home() {
 
           {posts.length > 0 && (
             <div>
-              <SheetHeading color="leaf">블로그 최근 글</SheetHeading>
+              <SheetHeading color="leaf">잡학사전 최근 글</SheetHeading>
               <ul className="ruled mt-5">
                 {posts.map((p) => (
                   <li key={p.url}>

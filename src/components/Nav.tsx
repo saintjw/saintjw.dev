@@ -1,34 +1,23 @@
 import Link from "next/link";
 import ThemeToggle from "@/components/ThemeToggle";
-
-const links = [
-  { href: "/", label: "홈" },
-  { href: "/posts", label: "글" },
-  { href: "/blog", label: "블로그" },
-  { href: "/games", label: "게임" },
-  { href: "/qna", label: "이야기방" },
-];
+import NavLinks from "@/components/NavLinks";
 
 export default function Nav() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-sm">
-      <nav className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
-        <Link href="/" className="group flex items-baseline gap-1.5 text-foreground">
-          <span className="font-display text-xl sm:text-2xl">saintjw</span>
-          <span className="hidden text-sm text-muted sm:inline">의 다이어리</span>
-        </Link>
-        <div className="flex items-center gap-2 sm:gap-5">
-          <ul className="flex items-center gap-3.5 whitespace-nowrap text-sm text-muted sm:gap-6 sm:text-[15px] [@media(display-mode:standalone)]:hidden">
-            {links.map((link) => (
-              <li key={link.href}>
-                <Link href={link.href} className="marker-link transition-colors hover:text-foreground">
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <ThemeToggle />
+      <nav className="mx-auto max-w-5xl px-4 sm:px-6">
+        <div className="flex items-center justify-between gap-3 py-3 md:py-4">
+          <Link href="/" className="flex items-baseline gap-1.5 text-foreground">
+            <span className="font-display text-base text-muted sm:text-lg">은결의</span>
+            <span className="font-display text-xl sm:text-2xl">Serendipity</span>
+          </Link>
+          <div className="flex items-center gap-2 md:gap-6">
+            <NavLinks className="hidden gap-7 text-lg md:flex [@media(display-mode:standalone)]:!hidden" />
+            <ThemeToggle />
+          </div>
         </div>
+        {/* 좁은 화면: 메뉴를 한 줄 아래에 크게 */}
+        <NavLinks className="-mt-1 flex justify-between gap-2 overflow-x-auto pb-2.5 text-[15px] min-[400px]:justify-start min-[400px]:gap-5 min-[400px]:text-base md:hidden [@media(display-mode:standalone)]:hidden" />
       </nav>
     </header>
   );

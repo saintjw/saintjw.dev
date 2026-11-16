@@ -8,7 +8,7 @@ const SECTION_COLORS: TabColor[] = ["yellow", "leaf", "blue", "rose"];
 export const revalidate = 3600;
 
 export const metadata = pageMetadata(
-  "블로그",
+  "잡학사전",
   "티스토리에 쓴 글들을 주제별로 모아둡니다.",
 );
 
