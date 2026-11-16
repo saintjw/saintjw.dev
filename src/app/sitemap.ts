@@ -17,6 +17,7 @@ const routes = [
   "/guestbook",
   "/now",
   "/uses",
+  "/privacy",
   ...topics.map((t) => `/posts/topic/${t.slug}`),
 ];
 

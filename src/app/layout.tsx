@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import { ADSENSE_CLIENT } from "@/lib/adsense";
 
 const themeInitScript = `
 (function () {
@@ -45,6 +46,9 @@ export const metadata: Metadata = {
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
   },
+  other: {
+    "google-adsense-account": ADSENSE_CLIENT,
+  },
   twitter: {
     card: "summary_large_image",
     title: SITE_TITLE,
@@ -63,6 +67,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+        />
+        <script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
+          crossOrigin="anonymous"
         />
       </head>
       <body className="min-h-full flex flex-col">

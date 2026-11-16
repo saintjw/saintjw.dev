@@ -5,6 +5,7 @@ const links = [
   { href: "/now", label: "요즘" },
   { href: "/uses", label: "쓰는 것들" },
   { href: "/guestbook", label: "방명록" },
+  { href: "/privacy", label: "개인정보처리방침" },
 ];
 
 export default function Footer() {
