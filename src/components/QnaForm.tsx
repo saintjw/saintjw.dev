@@ -29,7 +29,10 @@ export default function QnaForm() {
   const widgetRef = useRef<HTMLDivElement>(null);
   const widgetId = useRef<string | null>(null);
   const [scriptReady, setScriptReady] = useState(false);
-  const [length, setLength] = useState(0);
+  // 입력값을 상태로 들고 있어야 실패했을 때 쓰던 글이 지워지지 않는다(폼 액션은 제출 후 칸을 비운다).
+  const [nickname, setNickname] = useState("");
+  const [question, setQuestion] = useState("");
+  const [isPrivate, setIsPrivate] = useState(false);
 
   useEffect(() => {
     if (!SITE_KEY || !scriptReady || !widgetRef.current || widgetId.current) return;
@@ -40,8 +43,8 @@ export default function QnaForm() {
   useEffect(() => {
     if (!state) return;
     if (state.ok) {
-      formRef.current?.reset();
-      setLength(0);
+      setQuestion("");
+      setIsPrivate(false);
     }
     if (widgetId.current) window.turnstile?.reset(widgetId.current);
   }, [state]);
@@ -67,6 +70,8 @@ export default function QnaForm() {
             id="qna-nickname"
             name="nickname"
             maxLength={20}
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
             autoComplete="nickname"
             placeholder="예: 지나가던 개발자"
             className={field}
@@ -84,11 +89,12 @@ export default function QnaForm() {
             minLength={5}
             maxLength={1000}
             rows={5}
-            onChange={(e) => setLength(e.target.value.length)}
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
             placeholder="글에 대한 질문, 사이트 이야기, 궁금한 무엇이든 남겨 주세요."
             className={`${field} resize-y leading-relaxed`}
           />
-          <p className="text-right text-xs tabular-nums text-muted">{length} / 1000</p>
+          <p className="text-right text-xs tabular-nums text-muted">{question.length} / 1000</p>
         </div>
 
         {/* 사람에게는 보이지 않는 칸 (봇 차단용) */}
@@ -100,7 +106,12 @@ export default function QnaForm() {
         </div>
 
         <label className="flex items-center gap-2 text-sm text-muted">
-          <input type="checkbox" name="private" className="h-4 w-4 accent-[var(--tab-leaf)]" />
+          <input
+            type="checkbox"
+            name="private"
+            checked={isPrivate}
+            onChange={(e) => setIsPrivate(e.target.checked)}
+            className="h-4 w-4 accent-[var(--tab-leaf)]" />
           비공개로 질문하기 <span className="text-xs">(답변은 확인 링크로만 볼 수 있어요)</span>
         </label>
 
