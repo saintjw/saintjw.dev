@@ -32,7 +32,7 @@ const SITE_TITLE = "saintjw.dev";
 const SITE_DESCRIPTION = "개인 소개, 블로그, 그리고 작은 게임들을 모아둔 공간";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://saintjw-dev.vercel.app"),
+  metadataBase: new URL("https://saintjw.dev"),
   title: {
     default: SITE_TITLE,
     template: `%s · ${SITE_TITLE}`,

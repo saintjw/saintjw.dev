@@ -68,10 +68,10 @@ export default async function PostPage({ params }: PageProps<"/posts/[slug]">) {
     author: {
       "@type": "Person",
       name: "saintjw",
-      url: "https://saintjw-dev.vercel.app",
+      url: "https://saintjw.dev",
     },
     keywords: post.tags.join(", "),
-    ...(post.image && { image: `https://saintjw-dev.vercel.app${post.image}` }),
+    ...(post.image && { image: `https://saintjw.dev${post.image}` }),
   };
 
   const color: TabColor = topic?.tab ?? "blue";

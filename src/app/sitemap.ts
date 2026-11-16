@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/posts";
 import { topics } from "@/lib/topics";
 
-const BASE_URL = "https://saintjw-dev.vercel.app";
+const BASE_URL = "https://saintjw.dev";
 
 const routes = [
   "",
