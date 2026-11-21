@@ -7,6 +7,7 @@ import GameIcon from "@/components/GameIcon";
 export const metadata = pageMetadata(
   "게임",
   "심심할 때 만든 작은 웹 게임들을 모아뒀습니다.",
+  "/games",
 );
 
 const tilts = ["-1.4deg", "1.1deg", "-0.7deg", "1.6deg"];

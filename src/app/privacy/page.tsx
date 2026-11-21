@@ -5,6 +5,7 @@ import { DiaryPage } from "@/components/Diary";
 export const metadata = pageMetadata(
   "개인정보처리방침",
   "saintjw.dev가 방문자 정보를 어떻게 다루는지, 광고와 쿠키를 어떻게 쓰는지 안내합니다.",
+  "/privacy",
 );
 
 const UPDATED = "2026년 11월 16일";

@@ -4,7 +4,8 @@ import { PostList, PostsSheet, topicCounts } from "@/components/PostList";
 
 export const metadata = pageMetadata(
   "탐구노트",
-  "무언가를 만들며 배운 것, AI와 일하는 법, 쉽게 풀어 쓴 IT 이야기."
+  "무언가를 만들며 배운 것, AI와 일하는 법, 쉽게 풀어 쓴 IT 이야기.",
+  "/posts",
 );
 
 export default function PostsPage() {

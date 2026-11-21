@@ -10,6 +10,7 @@ import {
 export const metadata = pageMetadata(
   "요즘",
   "요즘 쓰고, 만들고, 준비하는 것들.",
+  "/now",
 );
 
 export default function NowPage() {

@@ -6,6 +6,7 @@ import { gameTabs } from "@/lib/games";
 export const metadata = pageMetadata(
   "두더지 잡기",
   "30초 동안 튀어나오는 두더지를 최대한 많이 잡아보세요.",
+  "/games/whack-a-mole",
 );
 
 export default function WhackAMolePage() {

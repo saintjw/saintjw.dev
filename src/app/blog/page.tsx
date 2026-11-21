@@ -10,6 +10,7 @@ export const revalidate = 3600;
 export const metadata = pageMetadata(
   "잡학사전",
   "티스토리에 쓴 글들을 주제별로 모아둡니다.",
+  "/blog",
 );
 
 export default async function BlogPage() {

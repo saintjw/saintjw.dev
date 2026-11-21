@@ -6,6 +6,7 @@ import { gameTabs } from "@/lib/games";
 export const metadata = pageMetadata(
   "스카이 파이터",
   "적기를 피하고 쏘면서 최대한 오래 살아남으세요.",
+  "/games/sky-fighter",
 );
 
 export default function SkyFighterPage() {

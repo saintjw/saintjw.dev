@@ -6,6 +6,7 @@ import { gameTabs } from "@/lib/games";
 export const metadata = pageMetadata(
   "반응속도 테스트",
   "화면이 초록색으로 바뀌는 순간 클릭! 내 반응 속도는 몇 ms?",
+  "/games/reaction-time",
 );
 
 export default function ReactionTimePage() {

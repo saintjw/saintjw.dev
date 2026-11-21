@@ -6,6 +6,7 @@ import { DiaryPage } from "@/components/Diary";
 export const metadata = pageMetadata(
   "지난 방명록",
   "GitHub 계정으로 남겨 주신 예전 방명록입니다. 새 이야기는 이야기방(Q&A)에 남겨 주세요.",
+  "/guestbook",
 );
 
 export default function GuestbookPage() {

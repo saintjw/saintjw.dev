@@ -5,6 +5,7 @@ import { DiaryPage } from "@/components/Diary";
 export const metadata = pageMetadata(
   "프로젝트",
   "만들어본 프로젝트들을 모아뒀습니다.",
+  "/projects",
 );
 
 export default function ProjectsPage() {

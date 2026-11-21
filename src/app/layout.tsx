@@ -5,6 +5,8 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { ADSENSE_CLIENT } from "@/lib/adsense";
+import JsonLd from "@/components/JsonLd";
+import { SITE_URL } from "@/lib/metadata";
 
 const themeInitScript = `
 (function () {
@@ -66,6 +68,29 @@ export const metadata: Metadata = {
   },
 };
 
+// 사이트 전체 구조화 데이터: 검색 결과에 사이트 이름과 운영자를 알려 준다.
+const siteJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: SITE_TITLE,
+      description: SITE_DESCRIPTION,
+      inLanguage: "ko-KR",
+      publisher: { "@id": `${SITE_URL}/#author` },
+    },
+    {
+      "@type": "Person",
+      "@id": `${SITE_URL}/#author`,
+      name: "saintjw",
+      alternateName: "은결",
+      url: SITE_URL,
+    },
+  ],
+};
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
@@ -88,6 +113,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Script id="theme-init" strategy="beforeInteractive">
           {themeInitScript}
         </Script>
+        <JsonLd data={siteJsonLd} />
         <Nav />
         <main className="flex-1">{children}</main>
         <Footer />

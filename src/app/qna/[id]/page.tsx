@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { DiaryPage } from "@/components/Diary";
 import QnaCard from "@/components/QnaCard";
 import { getQuestion, isStoreReady, tokenMatches } from "@/lib/qna";
+import JsonLd from "@/components/JsonLd";
+import { SITE_NAME, SITE_URL } from "@/lib/metadata";
 
 export const dynamic = "force-dynamic";
 
@@ -21,7 +23,8 @@ export async function generateMetadata({ params }: PageProps<"/qna/[id]">): Prom
   return {
     title: `Q. ${title}`,
     description,
-    openGraph: { title: `Q. ${title} · 은결의 Serendipity`, description },
+    alternates: { canonical: `/qna/${id}` },
+    openGraph: { title: `Q. ${title} · ${SITE_NAME}`, description, url: `/qna/${id}` },
   };
 }
 
@@ -42,6 +45,30 @@ export default async function QuestionPage({ params, searchParams }: PageProps<"
     );
   }
 
+  // 공개 질문만 검색엔진에 질문·답변 구조로 알린다.
+  const qaJsonLd = isPublic(q)
+    ? {
+        "@context": "https://schema.org",
+        "@type": "QAPage",
+        url: `${SITE_URL}/qna/${q.id}`,
+        mainEntity: {
+          "@type": "Question",
+          name: q.question.length > 110 ? `${q.question.slice(0, 110)}…` : q.question,
+          text: q.question,
+          answerCount: 1,
+          datePublished: q.createdAt,
+          author: { "@type": "Person", name: q.nickname || "익명" },
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: q.answer ?? "",
+            ...(q.answeredAt && { datePublished: q.answeredAt }),
+            url: `${SITE_URL}/qna/${q.id}`,
+            author: { "@type": "Person", "@id": `${SITE_URL}/#author`, name: "saintjw", url: SITE_URL },
+          },
+        },
+      }
+    : null;
+
   return (
     <DiaryPage
       color="leaf"
@@ -58,6 +85,7 @@ export default async function QuestionPage({ params, searchParams }: PageProps<"
         ) : undefined
       }
     >
+      {qaJsonLd && <JsonLd data={qaJsonLd} />}
       <div className="mt-10">
         <QnaCard q={q} link={false} showPending />
       </div>

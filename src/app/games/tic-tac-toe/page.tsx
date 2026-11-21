@@ -7,6 +7,7 @@ import { gameTabs } from "@/lib/games";
 export const metadata = pageMetadata(
   "틱택토",
   "2인용 O/X 게임. 클래식하지만 늘 재밌죠.",
+  "/games/tic-tac-toe",
 );
 
 export default function TicTacToePage() {

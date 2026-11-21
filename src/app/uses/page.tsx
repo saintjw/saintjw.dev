@@ -5,6 +5,7 @@ import { DiaryPage, SheetHeading, type TabColor } from "@/components/Diary";
 export const metadata = pageMetadata(
   "쓰는 것들",
   "매일 쓰는 기기와 도구, 서비스를 모아둡니다.",
+  "/uses",
 );
 
 export default function UsesPage() {

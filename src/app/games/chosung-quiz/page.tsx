@@ -6,6 +6,7 @@ import { gameTabs } from "@/lib/games";
 export const metadata = pageMetadata(
   "초성 퀴즈",
   "ㄱㅂ → 김밥! 한글 초성만 보고 단어를 맞히는 퀴즈. 음식, 동물, IT, 나라·도시, 영화, 속담 주제.",
+  "/games/chosung-quiz",
 );
 
 export default function Page() {

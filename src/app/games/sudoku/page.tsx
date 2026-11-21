@@ -6,6 +6,7 @@ import { gameTabs } from "@/lib/games";
 export const metadata = pageMetadata(
   "오늘의 스도쿠",
   "날마다 새로 나오는 스도쿠 퍼즐. 쉬움·보통·어려움 중에 골라 풀고 기록을 남겨 보세요.",
+  "/games/sudoku",
 );
 
 export default function Page() {

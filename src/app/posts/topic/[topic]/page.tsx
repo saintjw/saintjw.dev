@@ -12,7 +12,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps<"/posts/topic/[topic]">) {
   const topic = getTopic((await params).topic);
-  return topic ? pageMetadata(topic.name, topic.description) : {};
+  return topic ? pageMetadata(topic.name, topic.description, `/posts/topic/${topic.slug}`) : {};
 }
 
 export default async function TopicPage({ params }: PageProps<"/posts/topic/[topic]">) {

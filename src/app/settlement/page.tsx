@@ -2,7 +2,7 @@ import Settlement from "@/components/Settlement";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = {
-  ...pageMetadata("대회 정산", "참석 명단과 수입·지출을 넣으면 1/n로 정산해주는 계산기."),
+  ...pageMetadata("대회 정산", "참석 명단과 수입·지출을 넣으면 1/n로 정산해주는 계산기.", "/settlement"),
   // 홈 화면에 앱처럼 설치할 수 있게 하는 설정
   manifest: "/settlement.webmanifest",
 };

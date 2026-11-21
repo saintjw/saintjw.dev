@@ -6,6 +6,8 @@ import type { CSSProperties } from "react";
 import { getTopic, topics } from "@/lib/topics";
 import { topicCounts } from "@/components/PostList";
 import AdSlot from "@/components/AdSlot";
+import JsonLd from "@/components/JsonLd";
+import { RSS_ALTERNATE, SITE_URL } from "@/lib/metadata";
 import {
   DateStamp,
   IndexTabs,
@@ -29,9 +31,10 @@ export async function generateMetadata({
   return {
     title: post.title,
     description: post.description,
-    alternates: { canonical: `/posts/${post.slug}` },
+    alternates: { canonical: `/posts/${post.slug}`, types: RSS_ALTERNATE },
     openGraph: {
       type: "article",
+      url: `/posts/${post.slug}`,
       title: post.title,
       description: post.description,
       publishedTime: post.date,
@@ -58,20 +61,39 @@ export default async function PostPage({ params }: PageProps<"/posts/[slug]">) {
   const newer = i > 0 ? all[i - 1] : undefined;
   const older = i < all.length - 1 ? all[i + 1] : undefined;
 
+  const postUrl = `${SITE_URL}/posts/${post.slug}`;
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: post.title,
-    description: post.description,
-    datePublished: post.date,
-    dateModified: post.updated ?? post.date,
-    author: {
-      "@type": "Person",
-      name: "saintjw",
-      url: "https://saintjw.dev",
-    },
-    keywords: post.tags.join(", "),
-    ...(post.image && { image: `https://saintjw.dev${post.image}` }),
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        "@id": `${postUrl}#post`,
+        mainEntityOfPage: postUrl,
+        url: postUrl,
+        headline: post.title,
+        description: post.description,
+        datePublished: post.date,
+        dateModified: post.updated ?? post.date,
+        inLanguage: "ko-KR",
+        author: { "@type": "Person", "@id": `${SITE_URL}/#author`, name: "saintjw", url: SITE_URL },
+        publisher: { "@id": `${SITE_URL}/#author` },
+        isPartOf: { "@id": `${SITE_URL}/#website` },
+        keywords: post.tags.join(", "),
+        ...(topic && { articleSection: topic.name }),
+        ...(post.image && { image: `${SITE_URL}${post.image}` }),
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "홈", item: SITE_URL },
+          { "@type": "ListItem", position: 2, name: "탐구노트", item: `${SITE_URL}/posts` },
+          ...(topic
+            ? [{ "@type": "ListItem", position: 3, name: topic.name, item: `${SITE_URL}/posts/topic/${topic.slug}` }]
+            : []),
+          { "@type": "ListItem", position: topic ? 4 : 3, name: post.title, item: postUrl },
+        ],
+      },
+    ],
   };
 
   const color: TabColor = topic?.tab ?? "blue";
@@ -86,12 +108,7 @@ export default async function PostPage({ params }: PageProps<"/posts/[slug]">) {
 
   return (
     <article className="mx-auto max-w-[56rem] px-3 pt-8 pb-20 sm:px-6 sm:pt-12 lg:pr-16">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
-        }}
-      />
+      <JsonLd data={jsonLd} />
 
       <Link
         href="/posts"

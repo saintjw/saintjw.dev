@@ -6,6 +6,7 @@ import { gameTabs } from "@/lib/games";
 export const metadata = pageMetadata(
   "짝 맞추기",
   "다이어리 스티커 카드를 뒤집어 같은 그림의 짝을 찾는 기억력 게임.",
+  "/games/memory-match",
 );
 
 export default function Page() {

@@ -1,4 +1,6 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { RSS_ALTERNATE } from "@/lib/metadata";
 import {
   getCategories,
   getLatestPosts,
@@ -19,6 +21,10 @@ import {
 } from "@/components/Diary";
 
 export const revalidate = 3600;
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/", types: RSS_ALTERNATE },
+};
 
 // 포스트잇 메모: 색과 기울기를 조금씩 다르게 붙인다.
 const notes = [
