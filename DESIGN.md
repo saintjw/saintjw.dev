@@ -282,8 +282,20 @@ Links to games, now, projects and uses. Each a different note colour with its ow
 ### Navigation
 Sticky top bar: Gowun logo left, plain 14 to 15px pencil-grey text links that turn ink with a highlighter swipe on hover, theme toggle at the right. Hidden link row in standalone (installed PWA) display mode. Footer repeats the logo voice with secondary links in the same style. Previous/next at the end of an article are "← 앞 장" / "다음 장 →" between dashed ruled lines.
 
+### Article Contents (이 글의 차례)
+Shown under the article header when the post has three or more H2 sections. A small tracked "이 글의 차례" label, then the H2 titles in one or two newspaper-style columns (top to bottom, then the second column), each led by a bold tabular "01, 02" number in the topic ink (stamp ochre for yellow). Closed by a dashed ruled line; titles take the highlighter hover. H2 and H3 headings get stable ids generated from their text (Korean kept, spaces to hyphens) so sections can be linked.
+
+### Reading Progress
+A 3px band fixed to the very top of article pages, in the topic's tab colour, that grows left to right with scroll. Decorative (`aria-hidden`), no transition so it never lags.
+
+### Divider Tabs (잡학사전 filter)
+For filtering a list inside a sheet (not topic navigation on the sheet edge): binder-divider tabs standing on a 2px ink line. The chosen tab is full tab colour and raised; the others are the same colour washed 32% into the sheet with ink labels, and rise on hover. Each shows a tabular count. Below them sits a ruled-line search field: a magnifier icon and a borderless input over a dashed rule that turns solid ink on focus instead of a focus box. The choice is mirrored in the URL hash.
+
+### Keycap Start Button (games)
+The game "start" control is an ink pill standing on a 3px darker bottom edge (a border, not a shadow); it rises 1px when its card is hovered and sinks 2px, losing the edge, when pressed. Game icons wiggle once on card hover. Both are off under reduced motion.
+
 ### Article Prose
-Typography plugin re-coloured from tokens: softened ink body, Gowun H2 with a tilted topic-colour square, highlighter-hover links in deep blue, bold text on a marker-wash underlay, blockquotes as marker-wash notes with a curled corner and no left rule, inline code in a bordered paper-alt chip, full-width figures with a 12px radius and hairline border, centered captions, tabular numbers in tables.
+Typography plugin re-coloured from tokens: softened ink body, Gowun H2 with a tilted topic-colour square that opens each section with a dashed ruled line above it (not on the first heading), highlighter-hover links in deep blue, bold text on a marker-wash underlay, blockquotes as marker-wash notes with a curled corner and no left rule, inline code in a bordered paper-alt chip, full-width figures with a 12px radius and hairline border, centered captions, tabular numbers in tables.
 
 ### Game Icons
 Hand-drawn-feeling line icons on a 24px viewbox, one stroke weight (1.8), in current text colour.

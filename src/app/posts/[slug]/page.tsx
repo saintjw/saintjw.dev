@@ -7,6 +7,8 @@ import { getTopic, topics } from "@/lib/topics";
 import { topicCounts } from "@/components/PostList";
 import AdSlot from "@/components/AdSlot";
 import JsonLd from "@/components/JsonLd";
+import PostToc from "@/components/PostToc";
+import ReadingProgress from "@/components/ReadingProgress";
 import { RSS_ALTERNATE, SITE_URL } from "@/lib/metadata";
 import {
   DateStamp,
@@ -97,6 +99,8 @@ export default async function PostPage({ params }: PageProps<"/posts/[slug]">) {
   };
 
   const color: TabColor = topic?.tab ?? "blue";
+  // 노란 주제는 탭 색이 얇은 글자로 읽기엔 밝아서 도장용 진한 노랑을 쓴다.
+  const inkColor = color === "yellow" ? "var(--stamp-yellow)" : tabVar(color);
   const counts = topicCounts(all);
   const tabs = topics.map((t) => ({
     href: `/posts/topic/${t.slug}`,
@@ -109,6 +113,7 @@ export default async function PostPage({ params }: PageProps<"/posts/[slug]">) {
   return (
     <article className="mx-auto max-w-[56rem] px-3 pt-8 pb-20 sm:px-6 sm:pt-12 lg:pr-16">
       <JsonLd data={jsonLd} />
+      <ReadingProgress color={tabVar(color)} />
 
       <Link
         href="/posts"
@@ -162,6 +167,8 @@ export default async function PostPage({ params }: PageProps<"/posts/[slug]">) {
               {post.description}
             </p>
           </header>
+
+          <PostToc items={post.toc} numberColor={inkColor} />
 
           <AdSlot slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_TOP} />
 

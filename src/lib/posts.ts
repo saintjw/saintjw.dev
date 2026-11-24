@@ -21,16 +21,48 @@ export type PostMeta = {
   image?: string; // 본문 첫 이미지. SNS 미리보기 이미지로 쓴다.
 };
 
-export type Post = PostMeta & { html: string };
+export type TocItem = { id: string; text: string; depth: 2 | 3 };
+
+export type Post = PostMeta & { html: string; toc: TocItem[] };
 
 const escapeHtml = (s: string) =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+
+/** 제목 글자로 앵커 id를 만든다. 한글은 그대로 두고 공백은 하이픈으로. */
+function headingId(text: string, used: Map<string, number>) {
+  const base =
+    text
+      .toLowerCase()
+      .replace(/<[^>]+>/g, "")
+      .replace(/&[a-z#0-9]+;/gi, "")
+      .replace(/[^\p{L}\p{N}\s-]/gu, "")
+      .trim()
+      .replace(/\s+/g, "-") || "section";
+  const n = used.get(base) ?? 0;
+  used.set(base, n + 1);
+  return n === 0 ? base : `${base}-${n}`;
+}
+
+// 한 파일을 변환하는 동안 모은 차례. parseFile에서 변환 직전에 비운다.
+let tocCollector: TocItem[] = [];
+let usedIds = new Map<string, number>();
 
 // 본문에 섞인 HTML은 실행하지 않고 글자로 보여준다. (자동 작성 글의 안전장치)
 const markdown = new Marked({
   gfm: true,
   renderer: {
     html: ({ text }) => escapeHtml(text),
+    // H2·H3에 앵커 id를 달고 차례에 모은다.
+    heading({ tokens, depth, text }) {
+      const inner = this.parser.parseInline(tokens);
+      if (depth !== 2 && depth !== 3) return `<h${depth}>${inner}</h${depth}>
+`;
+      const plain = text.replace(/[`*_~]/g, "").trim();
+      const id = headingId(plain, usedIds);
+      tocCollector.push({ id, text: plain, depth });
+      return `<h${depth} id="${escapeHtml(id)}">${inner}</h${depth}>
+`;
+    },
     // 이미지는 캡션(마크다운 title)이 있으면 figure로 감싸고, 늦게 불러오게 한다.
     image: ({ href, title, text }) => {
       const img = `<img src="${escapeHtml(href)}" alt="${escapeHtml(text)}" loading="lazy" decoding="async">`;
@@ -72,6 +104,11 @@ function parseFile(file: string): Post {
     throw new Error(`${where}: 알 수 없는 topic '${data.topic}'. src/lib/topics.ts를 확인하세요.`);
   }
 
+  tocCollector = [];
+  usedIds = new Map();
+  const html = markdown.parse(content) as string;
+  const toc = tocCollector;
+
   const chars = content.replace(/\s/g, "").length;
   const firstImage = content.match(/!\[[^\]]*\]\((\/[^)\s]+)/)?.[1];
   return {
@@ -85,7 +122,8 @@ function parseFile(file: string): Post {
     draft: data.draft === true,
     readingMinutes: Math.max(1, Math.round(chars / 500)),
     image: firstImage,
-    html: markdown.parse(content) as string,
+    html,
+    toc,
   };
 }
 
@@ -107,6 +145,7 @@ function loadAll(): Post[] {
 function stripBody(post: Post): PostMeta {
   const meta: Partial<Post> = { ...post };
   delete meta.html;
+  delete meta.toc;
   return meta as PostMeta;
 }
 
