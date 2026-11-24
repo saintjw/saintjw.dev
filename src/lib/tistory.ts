@@ -15,7 +15,6 @@ export type CategoryWithPosts = TistoryCategory & { posts: TistoryPost[] };
 
 const BLOG_URL = "https://saintjw.tistory.com";
 const FEED_URL = `${BLOG_URL}/rss`;
-const REVALIDATE = { next: { revalidate: 3600 } };
 
 const NAMED_ENTITIES: Record<string, string> = {
   lt: "<",
@@ -67,8 +66,8 @@ function formatDate(pubDate: string | null): string {
 
 const cleanCategory = (raw: string) => raw.replace(/::/g, "").trim();
 
-async function fetchText(url: string) {
-  const res = await fetch(url, REVALIDATE);
+async function fetchText(url: string, revalidate = 3600) {
+  const res = await fetch(url, { next: { revalidate } });
   if (!res.ok) throw new Error(`Failed to fetch ${url}: ${res.status}`);
   return res.text();
 }
@@ -140,4 +139,84 @@ export async function getPostsByCategory(): Promise<CategoryWithPosts[]> {
       return { ...c, posts: posts.map((p) => ({ ...p, date: dates.get(p.url) ?? "" })) };
     })
   );
+}
+
+// ── 잡학사전 전체 검색용 색인 ──────────────────────────────────────────
+
+/** 검색 색인 한 줄. 내려보내는 크기를 줄이려고 키를 한 글자로 쓴다. */
+export type SearchEntry = { t: string; u: string; d: string; c: string };
+
+const ONE_DAY = 86400;
+
+/** "2026. 11. 24." → "2026-11-24" */
+function dotDate(text: string): string {
+  const m = text.match(/(\d{4})\.\s*(\d{1,2})\.\s*(\d{1,2})/);
+  return m ? `${m[1]}-${m[2].padStart(2, "0")}-${m[3].padStart(2, "0")}` : "";
+}
+
+const stripTags = (html: string) => decodeEntities(html.replace(/<[^>]+>/g, "")).trim();
+
+/** 카테고리 목록 페이지 한 장에서 글(주소·제목·날짜)을 읽는다. */
+function parseListPage(html: string, category: string): SearchEntry[] {
+  const out: SearchEntry[] = [];
+  for (const block of html.split('<div class="post-item">').slice(1)) {
+    const href = block.match(/<a href="(\/\d+)"/)?.[1];
+    const title = block.match(/<span class="title">([\s\S]*?)<\/span>/)?.[1];
+    if (!href || !title) continue;
+    const date = block.match(/<span class="date">([\s\S]*?)<\/span>/)?.[1] ?? "";
+    out.push({ t: stripTags(title), u: `${BLOG_URL}${href}`, d: dotDate(date), c: category });
+  }
+  return out;
+}
+
+/** 동시에 limit개씩만 요청한다. 실패한 장은 건너뛴다. */
+async function mapLimit<T, R>(items: T[], limit: number, fn: (item: T) => Promise<R>) {
+  const results: (R | undefined)[] = new Array(items.length);
+  let next = 0;
+  await Promise.all(
+    Array.from({ length: Math.min(limit, items.length) }, async () => {
+      while (next < items.length) {
+        const i = next++;
+        results[i] = await fn(items[i]).catch(() => undefined);
+      }
+    }),
+  );
+  return results.filter((r): r is R => r !== undefined);
+}
+
+/**
+ * 티스토리 글 전체(제목·주소·날짜·카테고리) 색인.
+ * 카테고리 목록 페이지를 끝까지 넘겨 읽는다. 새 글이 쌓이는 첫 장과 RSS는 1시간,
+ * 뒤쪽 장은 하루 동안 캐시한다. 새 글이 밀려 뒷장이 하루 늦게 갱신돼도
+ * 최근 글은 RSS(최신 50편)로 채워지므로 빠지지 않는다.
+ */
+export async function getSearchIndex(): Promise<SearchEntry[]> {
+  const [categories, recent] = await Promise.all([
+    getCategories(),
+    getLatestPosts(50).catch(() => [] as TistoryPost[]),
+  ]);
+
+  const firstPages = await mapLimit(categories, 4, async (c) => {
+    const html = await fetchText(c.url, 3600);
+    const posts = parseListPage(html, c.name);
+    const perPage = Math.max(posts.length, 1);
+    return { c, posts, pages: Math.ceil(c.count / perPage) };
+  });
+
+  const rest = firstPages.flatMap(({ c, pages }) =>
+    Array.from({ length: Math.max(0, pages - 1) }, (_, i) => ({ c, page: i + 2 })),
+  );
+  const restPosts = await mapLimit(rest, 6, async ({ c, page }) =>
+    parseListPage(await fetchText(`${c.url}?page=${page}`, ONE_DAY), c.name),
+  );
+
+  const byUrl = new Map<string, SearchEntry>();
+  for (const p of recent) {
+    if (!p.url.startsWith(BLOG_URL)) continue;
+    byUrl.set(p.url, { t: p.title, u: p.url, d: p.date, c: p.category ?? "" });
+  }
+  for (const p of [...firstPages.flatMap((f) => f.posts), ...restPosts.flat()]) {
+    if (!byUrl.has(p.u)) byUrl.set(p.u, p);
+  }
+  return [...byUrl.values()].sort((a, b) => (a.d < b.d ? 1 : a.d > b.d ? -1 : 0));
 }
