@@ -7,9 +7,14 @@ export default function Nav() {
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-sm">
       <nav className="mx-auto max-w-5xl px-4 sm:px-6">
         <div className="flex items-center justify-between gap-3 py-3 md:py-4">
-          <Link href="/" className="flex items-baseline gap-1.5 text-foreground">
+          <Link href="/" className="group flex items-baseline gap-1.5 text-foreground">
             <span className="font-display text-base text-muted sm:text-lg">은결의</span>
-            <span className="font-display text-xl sm:text-2xl">Serendipity</span>
+            <span className="relative font-display text-xl sm:text-2xl">
+              Serendipity
+              <span aria-hidden className="sparkle">
+                ✦
+              </span>
+            </span>
           </Link>
           <div className="flex items-center gap-2 md:gap-6">
             <NavLinks className="hidden gap-7 text-lg md:flex [@media(display-mode:standalone)]:!hidden" />

@@ -300,6 +300,16 @@ Typography plugin re-coloured from tokens: softened ink body, Gowun H2 with a ti
 ### Game Icons
 Hand-drawn-feeling line icons on a 24px viewbox, one stroke weight (1.8), in current text colour.
 
+## Motion
+
+Motion is the hand opening the planner, never decoration for its own sake. Everything below is gated by `prefers-reduced-motion: no-preference`; with reduced motion, states still change but nothing travels.
+
+- **Page entrance** (`app/template.tsx` → `.page-enter`): the page content rises 14px and fades in over 0.55s on every navigation. Sheets themselves are never animated, because a transform or opacity on `.sheet` would let its `::before` back sheet show through.
+- **Tape** sticks on from the left (scaleX 0 → 1, 0.5s, 0.12s delay). **Date stamps** thunk down (scale 1.45 → 0.94 → 1 with an overshoot curve, 0.25s delay) and tilt a little further when their row is hovered. The **home hero marker** draws itself after the text has settled (0.9s, 0.5s delay).
+- **Scroll reveal**: ruled-list rows and `.reveal` items (sticky notes, game notes) rise 18px and fade in as they enter the viewport, using CSS scroll-driven animation (`animation-timeline: view()`); browsers without it simply show them.
+- **Hover**: top-menu links lift 2px while the highlighter sweeps; the "Serendipity" logo pops a small ochre ✦; the theme toggle's sun turns 90° and the moon tips -18°; home CTA pills lift 2px and their → nudges right.
+- Curves: `cubic-bezier(0.22, 1, 0.36, 1)` for settling, `cubic-bezier(0.34, 1.56, 0.64, 1)` for the stamp, sparkle and toggle overshoot.
+
 ## Do's and Don'ts
 
 ### Do:

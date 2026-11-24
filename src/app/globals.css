@@ -295,6 +295,168 @@ body {
   }
 }
 
+/* ════════════════════════════════════════════════════════════════
+ * 움직임: 다이어리를 펼치는 손길. 전부 prefers-reduced-motion에서 꺼진다.
+ * 속지(.sheet) 자체에는 애니메이션을 걸지 않는다. 겹쳐 깔린 뒷장(::before)이
+ * 앞장 위로 비치는 것을 막기 위해서다.
+ * ════════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: no-preference) {
+  /* 페이지가 열릴 때: 속지 묶음이 책상 위에 살며시 내려앉는다 (template.tsx) */
+  .page-enter {
+    animation: lay-down 0.55s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+
+  /* 날짜 도장: 쾅 찍힌다 */
+  .stamp {
+    animation: stamp-in 0.5s 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .group:hover .stamp,
+  .group:focus-visible .stamp {
+    transform: rotate(-5deg) scale(1.04);
+  }
+
+  /* 마스킹테이프: 왼쪽부터 쭉 붙인다 */
+  .tape {
+    transform-origin: left center;
+    animation: tape-in 0.5s 0.12s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+
+  /* 홈 인사말의 형광펜: 글자가 보인 뒤 슥 긋는다 */
+  .marker {
+    animation: marker-draw 0.9s 0.5s cubic-bezier(0.65, 0, 0.35, 1) backwards;
+  }
+
+  /* 스크롤하면 목록 줄과 포스트잇이 한 장씩 올라온다 (지원 브라우저만) */
+  @supports (animation-timeline: view()) {
+    .ruled > *,
+    .reveal {
+      animation: rise-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 70%;
+    }
+  }
+}
+
+@keyframes lay-down {
+  from {
+    opacity: 0;
+    translate: 0 14px;
+  }
+}
+@keyframes stamp-in {
+  0% {
+    opacity: 0;
+    transform: rotate(-9deg) scale(1.45);
+  }
+  60% {
+    opacity: 1;
+    transform: rotate(-1.5deg) scale(0.94);
+  }
+  100% {
+    transform: rotate(-2.5deg) scale(1);
+  }
+}
+@keyframes tape-in {
+  from {
+    transform: scaleX(0);
+  }
+}
+@keyframes marker-draw {
+  from {
+    background-size: 0% 100%;
+  }
+  to {
+    background-size: 100% 100%;
+  }
+}
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    translate: 0 18px;
+  }
+}
+
+/* ── 상단 메뉴: 손을 대면 글자가 살짝 들리고 형광펜이 그어진다 ── */
+.nav-link {
+  display: inline-block;
+  transition:
+    background-size 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.2s,
+    translate 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.nav-link:hover,
+.nav-link:focus-visible {
+  translate: 0 -2px;
+}
+.nav-link:active {
+  translate: 0 0;
+}
+
+/* ── 로고: "Serendipity"에 손을 대면 작은 별이 반짝 ── */
+.sparkle {
+  position: absolute;
+  top: -0.35em;
+  right: -0.75em;
+  font-size: 0.55em;
+  color: var(--stamp-yellow);
+  opacity: 0;
+  transform: scale(0.3) rotate(-45deg);
+  transition:
+    opacity 0.3s,
+    transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+}
+.group:hover .sparkle,
+.group:focus-visible .sparkle {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+/* ── 버튼: 잉크 알약은 들리고, 테두리 알약은 형광펜이 차오른다 ── */
+.btn-ink,
+.btn-line {
+  transition:
+    translate 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.2s,
+    border-color 0.2s;
+}
+.btn-ink:hover,
+.btn-line:hover,
+.btn-ink:focus-visible,
+.btn-line:focus-visible {
+  translate: 0 -2px;
+}
+.btn-ink:active,
+.btn-line:active {
+  translate: 0 0;
+}
+.btn-ink .arrow,
+.btn-line .arrow {
+  display: inline-block;
+  transition: translate 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-ink:hover .arrow,
+.btn-line:hover .arrow {
+  translate: 3px 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-link,
+  .sparkle,
+  .btn-ink,
+  .btn-line,
+  .btn-ink .arrow,
+  .btn-line .arrow {
+    transition: none;
+  }
+  .nav-link:hover,
+  .btn-ink:hover,
+  .btn-line:hover {
+    translate: none;
+  }
+}
+
 /* 글 본문(prose) 색을 사이트 테마 토큰에 맞춘다. 라이트·다크 모두 자동 적용 */
 .prose {
   --tw-prose-body: color-mix(in srgb, var(--foreground) 86%, var(--card));

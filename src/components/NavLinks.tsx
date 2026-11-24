@@ -26,7 +26,7 @@ export default function NavLinks({ className = "" }: { className?: string }) {
             <Link
               href={link.href}
               aria-current={active ? "page" : undefined}
-              className={`marker-link transition-colors hover:text-foreground ${
+              className={`marker-link nav-link hover:text-foreground ${
                 active ? "text-foreground" : "text-foreground/75"
               }`}
               style={active ? { backgroundSize: "100% 100%" } : undefined}

@@ -29,7 +29,7 @@ export default function ThemeToggle() {
       onClick={toggle}
       aria-label={isDark ? "밝은 화면으로 바꾸기" : "어두운 화면으로 바꾸기"}
       title={isDark ? "밝은 화면으로" : "어두운 화면으로"}
-      className="flex h-9 w-9 items-center justify-center rounded-full text-muted transition-colors hover:bg-accent-soft hover:text-foreground"
+      className="group flex h-9 w-9 items-center justify-center rounded-full text-muted transition-colors hover:bg-accent-soft hover:text-foreground"
     >
       <svg
         aria-hidden
@@ -41,6 +41,10 @@ export default function ThemeToggle() {
         strokeWidth="1.8"
         strokeLinecap="round"
         strokeLinejoin="round"
+        // 해는 빙글 돌고, 달은 살짝 기운다
+        className={`transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] motion-reduce:transition-none ${
+          isDark ? "group-hover:-rotate-[18deg]" : "group-hover:rotate-90"
+        }`}
       >
         {isDark ? (
           <path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z" />

@@ -90,7 +90,7 @@ export default function GamesPage() {
 
       <ul className="mt-10 grid gap-6 sm:grid-cols-2">
         {rest.map((game, i) => (
-          <li key={game.slug}>
+          <li key={game.slug} className="reveal">
             <Link
               href={`/games/${game.slug}`}
               className="note group flex h-full flex-col p-6 text-foreground"

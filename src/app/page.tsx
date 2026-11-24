@@ -121,15 +121,15 @@ export default async function Home() {
           <div className="mt-9 flex flex-wrap items-center gap-3">
             <Link
               href="/posts"
-              className="rounded-full bg-foreground px-6 py-3 text-sm font-semibold text-background transition-transform hover:-translate-y-0.5"
+              className="btn-ink rounded-full bg-foreground px-6 py-3 text-sm font-semibold text-background"
             >
-              꿀팁 글모음
+              꿀팁 글모음 <span aria-hidden className="arrow">→</span>
             </Link>
             <Link
               href="/games"
-              className="rounded-full border border-foreground/25 px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:border-foreground hover:bg-accent-soft"
+              className="btn-line rounded-full border border-foreground/25 px-6 py-3 text-sm font-semibold text-foreground hover:border-foreground hover:bg-accent-soft"
             >
-              게임 모음
+              게임 모음 <span aria-hidden className="arrow">→</span>
             </Link>
           </div>
 
@@ -259,7 +259,7 @@ export default async function Home() {
         </h2>
         <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {notes.map((n) => (
-            <li key={n.href}>
+            <li key={n.href} className="reveal">
               <Link
                 href={n.href}
                 className="note group flex h-full flex-col p-5 pb-4 text-foreground"
