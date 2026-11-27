@@ -62,6 +62,17 @@ export default async function PostPage({ params }: PageProps<"/posts/[slug]">) {
   const i = all.findIndex((p) => p.slug === post.slug);
   const newer = i > 0 ? all[i - 1] : undefined;
   const older = i < all.length - 1 ? all[i + 1] : undefined;
+  // 앞뒤 장과 겹치지 않는 관련 글 3편: 같은 주제·겹치는 태그가 많은 글부터, 같으면 최신 글.
+  const related = all
+    .filter((p) => !p.draft && p.slug !== post.slug && p.slug !== newer?.slug && p.slug !== older?.slug)
+    .map((p) => ({
+      p,
+      score: (p.topic === post.topic ? 2 : 0) + p.tags.filter((t) => post.tags.includes(t)).length,
+    }))
+    .filter((r) => r.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 3)
+    .map((r) => r.p);
 
   const postUrl = `${SITE_URL}/posts/${post.slug}`;
   const jsonLd = {
@@ -185,6 +196,21 @@ export default async function PostPage({ params }: PageProps<"/posts/[slug]">) {
                 <li key={tag}>#{tag}</li>
               ))}
             </ul>
+          )}
+
+          {related.length > 0 && (
+            <section aria-label="함께 읽기 좋은 글" className="mt-12 border-t border-dashed border-rule pt-8">
+              <h2 className="text-sm text-muted">함께 읽기 좋은 글</h2>
+              <ul className="mt-3 space-y-2.5">
+                {related.map((r) => (
+                  <li key={r.slug}>
+                    <Link href={`/posts/${r.slug}`} className="font-semibold leading-snug text-foreground">
+                      <span className="marker-link">{r.title}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
           )}
 
           {(newer || older) && (

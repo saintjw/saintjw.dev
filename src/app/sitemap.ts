@@ -29,12 +29,19 @@ const routes = [
 export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const published = getAllPosts().filter((p) => !p.draft);
+  // 글 목록이 담긴 페이지만 가장 최근 글 날짜를 쓴다. 나머지 고정 페이지는 빌드 시각을
+  // 넣으면 매번 "수정됨"으로 보여 구글이 lastmod를 믿지 않게 되므로 아예 뺀다.
+  const latest = published.reduce<string | undefined>((m, p) => {
+    const d = p.updated ?? p.date;
+    return !m || d > m ? d : m;
+  }, undefined);
+  const listing = new Set(["", "/posts", ...topics.map((t) => `/posts/topic/${t.slug}`)]);
   const pages = routes.map((route) => ({
     url: `${BASE_URL}${route}`,
-    lastModified: new Date(),
+    ...(listing.has(route) && latest ? { lastModified: new Date(latest) } : {}),
   }));
-  const posts = getAllPosts()
-    .filter((p) => !p.draft)
+  const posts = published
     .map((p) => ({
       url: `${BASE_URL}/posts/${p.slug}`,
       lastModified: new Date(p.updated ?? p.date),
