@@ -5,7 +5,7 @@ import { gameTabs } from "@/lib/games";
 
 export const metadata = pageMetadata(
   "스카이 파이터",
-  "적기를 피하고 쏘면서 최대한 오래 살아남으세요.",
+  "적기를 쏘아 맞히고 피하며 오래 살아남는 슈팅 게임. 방향키나 WASD, 화면 드래그로 조종하고 총알은 자동으로 나가요.",
   "/games/sky-fighter",
 );
 

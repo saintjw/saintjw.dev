@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 const links = [
+  { href: "/about", label: "소개" },
   { href: "/projects", label: "프로젝트" },
   { href: "/now", label: "요즘" },
   { href: "/uses", label: "쓰는 것들" },

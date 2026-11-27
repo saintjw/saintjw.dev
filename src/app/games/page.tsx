@@ -7,7 +7,7 @@ import BestRecord from "@/components/BestRecord";
 
 export const metadata = pageMetadata(
   "게임",
-  "심심할 때 만든 작은 웹 게임들을 모아뒀습니다.",
+  "스도쿠, 초성 퀴즈, 짝 맞추기, 반응속도 테스트, 두더지 잡기, 틱택토, 스카이 파이터. 설치 없이 브라우저에서 바로 하는 무료 웹 게임을 모았어요.",
   "/games",
 );
 

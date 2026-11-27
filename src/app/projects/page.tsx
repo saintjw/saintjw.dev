@@ -4,7 +4,7 @@ import { DiaryPage } from "@/components/Diary";
 
 export const metadata = pageMetadata(
   "프로젝트",
-  "만들어본 프로젝트들을 모아뒀습니다.",
+  "직접 만든 프로젝트를 모아 둔 곳이에요. 지금 보고 계신 saintjw.dev도 Next.js, TypeScript, Tailwind CSS로 직접 만들었어요.",
   "/projects",
 );
 

@@ -8,7 +8,7 @@ export const revalidate = 3600;
 
 export const metadata = pageMetadata(
   "잡학사전",
-  "티스토리에 쓴 글들을 주제별로 모아둡니다.",
+  "티스토리 블로그 라이프업 연구소에 쓴 생활 정보 글을 데스크케어, 러닝, IT 전자기기, 여행, 재테크 같은 주제별로 모아 둔 잡학사전이에요.",
   "/blog",
 );
 

@@ -6,7 +6,7 @@ import { gameTabs } from "@/lib/games";
 
 export const metadata = pageMetadata(
   "틱택토",
-  "2인용 O/X 게임. 클래식하지만 늘 재밌죠.",
+  "친구와 한 화면에서 번갈아 두는 2인용 틱택토(O/X 게임). 규칙과 이기는 요령도 함께 정리했어요.",
   "/games/tic-tac-toe",
 );
 

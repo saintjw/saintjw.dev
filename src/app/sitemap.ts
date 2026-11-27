@@ -22,6 +22,7 @@ const routes = [
   "/now",
   "/uses",
   "/privacy",
+  "/about",
   ...topics.map((t) => `/posts/topic/${t.slug}`),
 ];
 

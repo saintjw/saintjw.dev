@@ -4,7 +4,7 @@ import { DiaryPage } from "@/components/Diary";
 import QnaCard from "@/components/QnaCard";
 import { getQuestion, isStoreReady, tokenMatches } from "@/lib/qna";
 import JsonLd from "@/components/JsonLd";
-import { SITE_NAME, SITE_URL } from "@/lib/metadata";
+import { AUTHOR_NAME, DEFAULT_OG_IMAGE, SITE_NAME, SITE_URL } from "@/lib/metadata";
 
 export const dynamic = "force-dynamic";
 
@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: PageProps<"/qna/[id]">): Prom
     title: `Q. ${title}`,
     description,
     alternates: { canonical: `/qna/${id}` },
-    openGraph: { title: `Q. ${title} · ${SITE_NAME}`, description, url: `/qna/${id}` },
+    openGraph: { title: `Q. ${title} · ${SITE_NAME}`, description, url: `/qna/${id}`, images: [DEFAULT_OG_IMAGE] },
   };
 }
 
@@ -63,7 +63,7 @@ export default async function QuestionPage({ params, searchParams }: PageProps<"
             text: q.answer ?? "",
             ...(q.answeredAt && { datePublished: q.answeredAt }),
             url: `${SITE_URL}/qna/${q.id}`,
-            author: { "@type": "Person", "@id": `${SITE_URL}/#author`, name: "saintjw", url: SITE_URL },
+            author: { "@type": "Person", "@id": `${SITE_URL}/#author`, name: AUTHOR_NAME, url: `${SITE_URL}/about` },
           },
         },
       }
@@ -72,7 +72,11 @@ export default async function QuestionPage({ params, searchParams }: PageProps<"
   return (
     <DiaryPage
       color="leaf"
-      title={owner && !isPublic(q) ? "내 질문" : "이야기방(Q&A)"}
+      title={
+        owner && !isPublic(q)
+          ? "내 질문"
+          : `Q. ${q.question.length > 60 ? `${q.question.slice(0, 60)}…` : q.question}`
+      }
       back={{ href: "/qna", label: "이야기방" }}
       intro={
         owner ? (

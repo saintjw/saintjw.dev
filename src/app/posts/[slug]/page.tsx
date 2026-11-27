@@ -9,7 +9,7 @@ import AdSlot from "@/components/AdSlot";
 import JsonLd from "@/components/JsonLd";
 import PostToc from "@/components/PostToc";
 import ReadingProgress from "@/components/ReadingProgress";
-import { RSS_ALTERNATE, SITE_URL } from "@/lib/metadata";
+import { AUTHOR_NAME, DEFAULT_OG_IMAGE, RSS_ALTERNATE, SITE_URL } from "@/lib/metadata";
 import {
   DateStamp,
   IndexTabs,
@@ -42,12 +42,12 @@ export async function generateMetadata({
       publishedTime: post.date,
       modifiedTime: post.updated ?? post.date,
       tags: post.tags,
-      ...(post.image && { images: [post.image] }),
+      images: [post.image ?? DEFAULT_OG_IMAGE],
     },
     twitter: {
       title: post.title,
       description: post.description,
-      ...(post.image && { images: [post.image] }),
+      images: [post.image ?? DEFAULT_OG_IMAGE.url],
     },
     robots: post.draft ? { index: false, follow: false } : undefined,
   };
@@ -88,7 +88,7 @@ export default async function PostPage({ params }: PageProps<"/posts/[slug]">) {
         datePublished: post.date,
         dateModified: post.updated ?? post.date,
         inLanguage: "ko-KR",
-        author: { "@type": "Person", "@id": `${SITE_URL}/#author`, name: "saintjw", url: SITE_URL },
+        author: { "@type": "Person", "@id": `${SITE_URL}/#author`, name: AUTHOR_NAME, url: `${SITE_URL}/about` },
         publisher: { "@id": `${SITE_URL}/#author` },
         isPartOf: { "@id": `${SITE_URL}/#website` },
         keywords: post.tags.join(", "),
@@ -155,6 +155,10 @@ export default async function PostPage({ params }: PageProps<"/posts/[slug]">) {
               {post.title}
             </h1>
             <p className="mt-4 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-sm text-muted">
+              <Link href="/about" rel="author" className="marker-link hover:text-foreground">
+                글 {AUTHOR_NAME}
+              </Link>
+              <span aria-hidden>·</span>
               {topic && (
                 <Link
                   href={`/posts/topic/${topic.slug}`}

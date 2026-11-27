@@ -40,7 +40,7 @@ export default function QnaCard({
             <p className="whitespace-pre-wrap break-words text-[15px] leading-relaxed text-foreground sm:text-base">
               {q.answer}
             </p>
-            <p className="mt-3 text-xs text-muted">saintjw 답변</p>
+            <p className="mt-3 text-xs text-muted">은결 답변</p>
           </div>
         </div>
       ) : (

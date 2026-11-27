@@ -5,7 +5,7 @@ import { gameTabs } from "@/lib/games";
 
 export const metadata = pageMetadata(
   "두더지 잡기",
-  "30초 동안 튀어나오는 두더지를 최대한 많이 잡아보세요.",
+  "30초 동안 튀어나오는 두더지를 최대한 많이 잡는 게임. 설치 없이 PC와 휴대폰 브라우저에서 바로 할 수 있어요.",
   "/games/whack-a-mole",
 );
 

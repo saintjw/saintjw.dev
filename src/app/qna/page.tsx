@@ -7,7 +7,7 @@ import { isStoreReady, listPublicQuestions } from "@/lib/qna";
 
 export const metadata = pageMetadata(
   "이야기방(Q&A)",
-  "로그인 없이 질문을 남기면 saintjw가 답해 드려요. 글, 사이트, 궁금한 무엇이든 묻고 답하는 공간.",
+  "로그인 없이 질문을 남기면 은결이 답해 드려요. 글, 사이트, 궁금한 무엇이든 묻고 답하는 공간.",
   "/qna",
 );
 

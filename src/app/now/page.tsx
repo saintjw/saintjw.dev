@@ -9,7 +9,7 @@ import {
 
 export const metadata = pageMetadata(
   "요즘",
-  "요즘 쓰고, 만들고, 준비하는 것들.",
+  "요즘 쓰고 있는 글, 만들고 있는 것, 준비하는 일을 적어 두는 페이지예요. 한 달에 한 번쯤 고쳐요.",
   "/now",
 );
 
